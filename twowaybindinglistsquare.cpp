@@ -7,18 +7,8 @@ TwoWayBindingListSquare::TwoWayBindingListSquare()
     Square * square = new Square(Square::SquareColour::BLACK, piece);
     squaresRow.append(square);
     this->m_squares = squaresRow;
-
+    QList<Square*> squarez = QList<Square*>::fromVector(this->m_squares);
+    this->m_things = squarez;
 }
 
-qsizetype TwoWayBindingListSquare::squareCount() const {
-    return 8;
-}
 
-QQmlListProperty<Square> TwoWayBindingListSquare::squares() {
-    return {this, this, &TwoWayBindingListSquare::squareCount, &TwoWayBindingListSquare::square};
-
-}
-
-Square * TwoWayBindingListSquare::square(qsizetype i) const {
-    return this->m_squares.at(i);
-}

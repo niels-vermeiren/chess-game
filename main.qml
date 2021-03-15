@@ -146,8 +146,8 @@ Window {
                     onPressed: parent.opacity = 0.8
                     onReleased: parent.opacity = 1.0
                 }
-             /* Binding {
-                       target: MySquareModel.square[index]
+           Binding {
+                       target: MySquareModel.square
                        property: "squareColour"
                        value: birect.colour
                }
@@ -155,7 +155,7 @@ Window {
                        target: MySquareModel.square.piece
                        property: "piece"
                        value: birecttxt.text
-               }*/
+               }
                MouseArea {
                    anchors.fill: parent
                    onClicked: {
@@ -168,8 +168,8 @@ Window {
         }
         }
 
+}
 
-    }
 
 
 

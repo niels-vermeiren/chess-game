@@ -3,7 +3,18 @@
 Bishop::Bishop(PieceColour colour) : Piece(colour) {
 
 }
-QString Bishop::getPieceType() {
+Bishop::~Bishop() {}
+
+QString Bishop::getPieceType() const {
     return QString("♝");
 }
-Bishop::~Bishop() {}
+QString Bishop::piece() const {
+    return this->getPieceType();
+};
+
+void Bishop::setPiece(QString piece) {
+    if(this->m_piece != piece) {
+        this->m_piece = piece;
+        emit pieceChanged();
+    }
+}

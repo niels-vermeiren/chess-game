@@ -9,20 +9,18 @@
 class TwoWayBindingListSquare : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QQmlListProperty<Square> squares READ squares)
-    QML_ELEMENT
+    Q_PROPERTY(QList<Square *> squares READ getSquares NOTIFY squaresChanged)
+
 
 public:
     TwoWayBindingListSquare();
+    QList<Square*> getSquares () const { return m_things; }
 
-    QQmlListProperty<Square> squares();
-    qsizetype squareCount() const;
-    Square *square(qsizetype) const;
-
+signals:
+    void squaresChanged ();
 
 private:
-    static Square * square(QQmlListProperty<Square>*, qsizetype);
-    static qsizetype squareCount(QQmlListProperty<Square>*);
+    QList<Square*> m_things;
     QVector<Square*> m_squares;
 };
 

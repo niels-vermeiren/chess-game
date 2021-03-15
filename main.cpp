@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("gameBoard", &chessVm);
     engine.rootContext()->setContextProperty("MyModel", text);
     engine.rootContext()->setContextProperty("MySquareModel", square);
+    engine.rootContext()->setContextProperty("MySquareListModel", listsquare);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
