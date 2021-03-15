@@ -1,6 +1,6 @@
 #ifndef ROOK_H
 #define ROOK_H
-#include "pieces/Piece.h"
+#include "pieces/piece.h"
 
 class Rook : public Piece
 {
@@ -9,7 +9,7 @@ class Rook : public Piece
     public:
         Rook(PieceColour colour);
         virtual ~Rook();
-        QString getPieceType() const;
+        QString pieceType() const;
         QString piece() const;
 
     public slots:

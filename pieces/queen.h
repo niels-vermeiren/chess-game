@@ -1,6 +1,6 @@
 #ifndef QUEEN_H
 #define QUEEN_H
-#include "pieces/Piece.h"
+#include "pieces/piece.h"
 
 class Queen : public Piece
 {
@@ -9,7 +9,7 @@ class Queen : public Piece
     public:
         Queen(PieceColour colour);
         virtual ~Queen();
-        QString getPieceType() const;
+        QString pieceType() const;
         QString piece() const;
 
     public slots:

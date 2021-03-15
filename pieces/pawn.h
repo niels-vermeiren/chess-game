@@ -1,6 +1,6 @@
 #ifndef PAWN_H
 #define PAWN_H
-#include "pieces/Piece.h"
+#include "pieces/piece.h"
 
 class Pawn: public Piece
 {
@@ -9,7 +9,7 @@ class Pawn: public Piece
     public:
         Pawn(PieceColour colour);
         virtual ~Pawn();
-        QString getPieceType() const;
+        QString pieceType() const;
         QString piece() const;
 
     public slots:

@@ -1,4 +1,4 @@
-#include "Square.h"
+#include "square.h"
 
 Square::Square(){}
 
@@ -34,7 +34,7 @@ void Square::setSquareColour(QString squareColour) {
 }
 
 void Square::setPieceOnSquare(Piece * piece){
-    if (piece->getColour() != this->m_piece->getColour() || piece->getPieceType() != this->m_piece->getPieceType()) {
+    if (piece->pieceColour() != this->m_piece->pieceColour() || piece->pieceType() != this->m_piece->pieceType()) {
         this->m_piece = piece;
         emit squarePieceChanged();
     }

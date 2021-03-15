@@ -15,7 +15,7 @@ QString ChessViewModel::getPieceAt(const int row, const int column) const
 
 QString ChessViewModel::getPieceColourAt(const int row, const int column) const
 {
-    return this->board->squares().at(row).at(column)->getPiece().getColour();
+    return this->board->squares().at(row).at(column)->getPiece().pieceColour();
 }
 
 QString ChessViewModel::getSquareColourAt(const int row, const int column) const {

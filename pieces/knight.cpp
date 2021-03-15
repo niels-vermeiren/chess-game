@@ -1,14 +1,14 @@
-#include "Knight.h"
+#include "knight.h"
 
 Knight::Knight(PieceColour colour) : Piece(colour) {
 }
 Knight::~Knight() {}
 
-QString Knight::getPieceType() const {
+QString Knight::pieceType() const {
     return QString("♞");
 }
 QString Knight::piece() const {
-    return this->getPieceType();
+    return this->pieceType();
 };
 
 void Knight::setPiece(QString piece) {

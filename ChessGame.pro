@@ -7,21 +7,17 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        board/BoardFactory.cpp \
-        board/Square.cpp \
-        board/board.cpp \
-        board/chessviewmodel.cpp \
+        board/boardfactory.cpp \
+        board/boardviewmodel.cpp \
+        board/square.cpp \
         main.cpp \
-        pieces/Bishop.cpp \
-        pieces/King.cpp \
-        pieces/Knight.cpp \
-        pieces/Pawn.cpp \
-        pieces/Piece.cpp \
-        pieces/Queen.cpp \
-        pieces/Rook.cpp \
-        twowaybindinglistsquare.cpp \
-        twowaybindingsquare.cpp \
-        twowaybindingtext.cpp
+        pieces/bishop.cpp \
+        pieces/king.cpp \
+        pieces/knight.cpp \
+        pieces/pawn.cpp \
+        pieces/piece.cpp \
+        pieces/queen.cpp \
+        pieces/rook.cpp
 
 RESOURCES += qml.qrc
 
@@ -37,17 +33,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    board/BoardFactory.h \
-    board/Square.h \
-    board/board.h \
-    board/chessviewmodel.h \
-    pieces/Bishop.h \
-    pieces/King.h \
-    pieces/Knight.h \
-    pieces/Pawn.h \
-    pieces/Piece.h \
-    pieces/Queen.h \
-    pieces/Rook.h \
-    twowaybindinglistsquare.h \
-    twowaybindingsquare.h \
-    twowaybindingtext.h
+    board/boardfactory.h \
+    board/boardviewmodel.h \
+    board/square.h \
+    pieces/bishop.h \
+    pieces/king.h \
+    pieces/knight.h \
+    pieces/pawn.h \
+    pieces/piece.h \
+    pieces/queen.h \
+    pieces/rook.h

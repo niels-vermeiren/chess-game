@@ -1,13 +1,13 @@
-#include "Queen.h"
+#include "queen.h"
 
 Queen::Queen(PieceColour colour) : Piece(colour) {
 }
 Queen::~Queen() {}
-QString Queen::getPieceType() const {
+QString Queen::pieceType() const {
     return QString("♛");
 }
 QString Queen::piece() const {
-    return this->getPieceType();
+    return this->pieceType();
 };
 
 void Queen::setPiece(QString piece) {

@@ -1,16 +1,16 @@
-#include "King.h"
+#include "king.h"
 
 King::King(PieceColour colour) : Piece(colour) {
 
 }
 King::~King() {}
 
-QString King::getPieceType() const {
+QString King::pieceType() const {
     return QString("♚");
 }
 
 QString King::piece() const {
-    return this->getPieceType();
+    return this->pieceType();
 };
 
 void King::setPiece(QString piece) {

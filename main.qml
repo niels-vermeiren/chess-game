@@ -26,15 +26,14 @@ Window {
                     id: square;
                     property int row: Math.floor(index/8);
                     property int col: index % 8;
-
                     property string squareColour: {
                         var color = "";
-                        if(gameBoard != null) color = gameBoard.getSquareColourAt(row, col);
+                        if(BoardModel != null) color = BoardModel.squares[row][col].squareColour
                         return color;
                     }
                     property string pieceColour: {
                         var color = "";
-                        if(gameBoard != null) color = gameBoard.getPieceColourAt(row, col);
+                        if(BoardModel != null) color = BoardModel.squares[row][col].piece.pieceColour;
                         return color;
                     }
                     width: 70;
@@ -44,7 +43,10 @@ Window {
                         id: txt
                         text:  {
                             var p = "";
-                            if(gameBoard != null) p = gameBoard.getPieceAt(row, col);
+                            if(BoardModel != null && BoardModel.squares[row][col].piece !== undefined
+                                    &&  BoardModel.squares[row][col].piece.piece !== undefined) {
+                                p = BoardModel.squares[row][col].piece.piece;
+                            }
                             return p;
                         }
                         color: parent.pieceColour
@@ -59,7 +61,7 @@ Window {
                         onExited: parent.color = parent.squareColour
                         onPressed: parent.opacity = 0.8
                         onReleased: parent.opacity = 1.0
-                    }
+                   }
                 }
             }
         }
@@ -73,102 +75,33 @@ Window {
             Rectangle {
                 width: 100;
                 height: 50;
-                color: "green"
+                color: "orange"
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 Text {
                     text: "Move piece"
-                    color: "white";
+                    color: "black";
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                 }
-
-            }
-            Text {
-                text: "ex. 2way binding text btn"
-                color: "white";
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: 25
-            }
-
-            Rectangle {
-                width: 200;
-                height: 50;
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: 50;
-                color: "orange"
-                Text {
-                        id: biDirectional
-
-                        text: MyModel.myValue
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                }
-                Binding {
-                        target: MyModel
-                        property: "myValue"
-                        value: biDirectional.text
-                }
                 MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                         onClicked: MyModel.myValue = "Hello Werellld"
+                     anchors.fill: parent
+                     hoverEnabled: true
+                     onEntered: parent.color = "yellow"
+                     onExited: parent.color = "orange"
+                     onPressed: parent.opacity = 0.8
+                     onReleased: parent.opacity = 1.0
+                     onClicked: {
+                         BoardModel.squares[6][3].setPiez("", "");
+                         BoardModel.squares[4][3].setPiez("♟", "white");
+                     }
                 }
             }
-            Text {
-                text: "ex. 2way binding square piece"
-                color: "white";
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: 130
-            }
+         }
+     }
+ }
 
-            Rectangle {
 
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: 155;
-                id:birect
-                width: 70;
-                height: 70
-                color: MySquareModel.square.squareColour;
-                Text {
-                    id: birecttxt
-                    text: MySquareModel.square.piece.piece
-                    font.pointSize: 30
-                    anchors.centerIn: parent
-               }
-
-               MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: parent.color = "#3ec73a"
-                    onExited:  parent.color = MySquareModel.square.squareColour
-                    //onExited: parent.color = parent.squareColour
-                    onPressed: parent.opacity = 0.8
-                    onReleased: parent.opacity = 1.0
-                }
-           Binding {
-                       target: MySquareModel.square
-                       property: "squareColour"
-                       value: birect.colour
-               }
-              Binding {
-                       target: MySquareModel.square.piece
-                       property: "piece"
-                       value: birecttxt.text
-               }
-               MouseArea {
-                   anchors.fill: parent
-                   onClicked: {
-                      MySquareModel.square.setSquareColour("yellow");
-                      MySquareModel.square.setPiez("♜", "black");
-
-                                         }
-               }
-            }
-        }
-        }
-
-}
 
 
 

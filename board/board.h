@@ -1,6 +1,6 @@
 #ifndef BOARD_H
 #define BOARD_H
-#include "board/Square.h"
+#include "board/square.h"
 
 class Board : public QObject
 {

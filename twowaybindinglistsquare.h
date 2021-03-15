@@ -4,7 +4,7 @@
 #include <QQmlListProperty>
 #include <QObject>
 #include <QtQml>
-#include <board/Square.h>
+#include <board/square.h>
 
 class TwoWayBindingListSquare : public QObject
 {

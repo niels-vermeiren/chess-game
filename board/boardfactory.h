@@ -7,7 +7,7 @@
 class BoardFactory
 {
     public:
-        static Board * createBoard();
+        static QList<QList<Square *>> createBoard();
 
 };
 #endif // BOARDFACTORY_H

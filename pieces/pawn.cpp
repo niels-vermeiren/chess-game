@@ -1,13 +1,13 @@
-#include "Pawn.h"
+#include "pawn.h"
 
 Pawn::Pawn(PieceColour colour): Piece(colour) {
 }
 Pawn::~Pawn() {}
-QString Pawn::getPieceType() const {
+QString Pawn::pieceType() const {
     return QString("♟");
 }
 QString Pawn::piece() const {
-    return this->getPieceType();
+    return this->pieceType();
 };
 
 void Pawn::setPiece(QString piece) {

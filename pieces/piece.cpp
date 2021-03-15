@@ -1,4 +1,4 @@
-#include "pieces/Piece.h"
+#include "pieces/piece.h"
 
 
 
@@ -8,22 +8,17 @@ Piece::Piece(Piece::PieceColour colour)
 }
 
 QString Piece::pieceType() const {
-
-    return this->getPieceType();
+    return "";
 };
 
 
-QString Piece::getColour() {
+QString Piece::pieceColour() {
     switch(this->colour) {
         case WHITE: return QString("white");
         case BLACK: return QString("black");
         case NONE: return QString("");
         default: return QString("");
     }
-}
-
-QString Piece::getPieceType() const {
-    return QString("");
 }
 
 Piece::~Piece(){}

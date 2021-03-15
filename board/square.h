@@ -1,14 +1,14 @@
-    #ifndef SQUARE_H
+#ifndef SQUARE_H
 #define SQUARE_H
-#include "pieces/Piece.h"
+#include "pieces/piece.h"
 #include <QObject>
 
-#include "pieces/Bishop.h"
-#include "pieces/Rook.h"
-#include "pieces/King.h"
-#include "pieces/Knight.h"
-#include "pieces/Pawn.h"
-#include "pieces/Queen.h"
+#include "pieces/bishop.h"
+#include "pieces/rook.h"
+#include "pieces/king.h"
+#include "pieces/knight.h"
+#include "pieces/pawn.h"
+#include "pieces/queen.h"
 
 class Square : public QObject
 {

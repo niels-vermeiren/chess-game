@@ -1,15 +1,15 @@
-#ifndef BISHOP_H
-#define BISHOP_H
-#include "pieces/Piece.h"
+#ifndef KING_H
+#define KING_H
+#include "pieces/piece.h"
 
-class Bishop : public Piece
+class King : public Piece
 {
     Q_OBJECT
     Q_PROPERTY(QString piece READ piece WRITE setPiece NOTIFY pieceChanged)
     public:
-        Bishop(PieceColour colour);
-        virtual ~Bishop();
-        QString getPieceType() const;
+        King(PieceColour colour);
+        QString pieceType() const;
+        virtual ~King();
         QString piece() const;
 
     public slots:
@@ -22,4 +22,4 @@ class Bishop : public Piece
         QString m_piece;
 };
 
-#endif // BISHOP_H
+#endif // KING_H

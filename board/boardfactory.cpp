@@ -1,13 +1,13 @@
-#include "board/BoardFactory.h"
+#include "board/boardfactory.h"
 #include <string>
-#include "board/Square.h"
-#include "pieces/Piece.h"
-#include "pieces/Knight.h"
-#include "pieces/Bishop.h"
-#include "pieces/Pawn.h"
-#include "pieces/Queen.h"
-#include "pieces/Rook.h"
-#include "pieces/King.h"
+#include "board/square.h"
+#include "pieces/piece.h"
+#include "pieces/knight.h"
+#include "pieces/bishop.h"
+#include "pieces/pawn.h"
+#include "pieces/queen.h"
+#include "pieces/rook.h"
+#include "pieces/king.h"
 
 const std::string initial[8][8] = {
         {"r", "k", "b", "K", "Q", "b", "k", "r"},
@@ -20,13 +20,13 @@ const std::string initial[8][8] = {
         {"r", "k", "b", "K", "Q", "b", "k", "r"}
 };
 
-Board * BoardFactory::createBoard() {
+QList<QList<Square *>> BoardFactory::createBoard() {
 
-    QVector<QVector<std::shared_ptr<Square>>> squares;
+    QList<QList<Square *>> squares;
 
     for(int x = 0 ; x != sizeof(initial)/sizeof(initial[0]) ; x++) {
 
-        QVector<std::shared_ptr<Square>> squaresRow;
+        QList<Square *> squaresRow;
         squaresRow.clear();
 
         for(int y =0 ; y != sizeof(initial[0])/sizeof(initial[0][0]) ; y++) {
@@ -44,11 +44,9 @@ Board * BoardFactory::createBoard() {
             if (initial[x][y] == "Q") piece = new Queen(pieceColour);
             if (initial[x][y] == "p") piece = new Pawn(pieceColour);
 
-            squaresRow.append(std::shared_ptr<Square>(new Square(squareColour, piece)));
+            squaresRow.append(new Square(squareColour, piece));
         }
         squares.append(squaresRow);
     }
-    Board * b = new Board();
-    b->setSquares(squares);
-    return b;
+    return squares;
 }

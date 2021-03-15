@@ -1,15 +1,16 @@
-#include "Bishop.h"
+#include "bishop.h"
 
 Bishop::Bishop(PieceColour colour) : Piece(colour) {
 
 }
 Bishop::~Bishop() {}
 
-QString Bishop::getPieceType() const {
+QString Bishop::pieceType() const {
     return QString("♝");
 }
+
 QString Bishop::piece() const {
-    return this->getPieceType();
+    return this->pieceType();
 };
 
 void Bishop::setPiece(QString piece) {

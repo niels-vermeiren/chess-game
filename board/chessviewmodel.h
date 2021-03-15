@@ -2,8 +2,8 @@
 #define CHESSVIEWMODEL_H
 #include <vector>
 #include "board.h"
-#include "board/Square.h"
-#include "board/BoardFactory.h"
+#include "board/square.h"
+#include "board/boardfactory.h"
 #include <string.h>
 
 class ChessViewModel : public QObject

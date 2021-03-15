@@ -1,15 +1,16 @@
-#ifndef KING_H
-#define KING_H
-#include "pieces/Piece.h"
+#ifndef KNIGHT_H
+#define KNIGHT_H
+#include "pieces/piece.h"
 
-class King : public Piece
+class Knight : public Piece
 {
     Q_OBJECT
     Q_PROPERTY(QString piece READ piece WRITE setPiece NOTIFY pieceChanged)
+
     public:
-        King(PieceColour colour);
-        QString getPieceType() const;
-        virtual ~King();
+        Knight(PieceColour colour);
+        virtual ~Knight();
+        QString pieceType() const;
         QString piece() const;
 
     public slots:
@@ -22,4 +23,4 @@ class King : public Piece
         QString m_piece;
 };
 
-#endif // KING_H
+#endif // KNIGHT_H

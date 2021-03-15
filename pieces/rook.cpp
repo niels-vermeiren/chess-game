@@ -1,4 +1,4 @@
-#include "pieces/Rook.h"
+#include "pieces/rook.h"
 
 Rook::Rook(PieceColour colour) : Piece(colour)
 {
@@ -8,13 +8,13 @@ Rook::~Rook()
 {
     //dtor
 }
-QString Rook::getPieceType() const {
+QString Rook::pieceType() const {
     return QString("♜");
 }
 
 
 QString Rook::piece() const {
-    return this->getPieceType();
+    return this->pieceType();
 };
 
 void Rook::setPiece(QString piece) {
