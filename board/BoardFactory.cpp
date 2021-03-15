@@ -1,0 +1,54 @@
+#include "board/BoardFactory.h"
+#include <string>
+#include "board/Square.h"
+#include "pieces/Piece.h"
+#include "pieces/Knight.h"
+#include "pieces/Bishop.h"
+#include "pieces/Pawn.h"
+#include "pieces/Queen.h"
+#include "pieces/Rook.h"
+#include "pieces/King.h"
+
+const std::string initial[8][8] = {
+        {"r", "k", "b", "K", "Q", "b", "k", "r"},
+        {"p", "p", "p", "p", "p", "p", "p", "p"},
+        {".", ".", ".", ".", ".", ".", ".", "."},
+        {".", ".", ".", ".", ".", ".", ".", "."},
+        {".", ".", ".", ".", ".", ".", ".", "."},
+        {".", ".", ".", ".", ".", ".", ".", "."},
+        {"p", "p", "p", "p", "p", "p", "p", "p"},
+        {"r", "k", "b", "K", "Q", "b", "k", "r"}
+};
+
+Board * BoardFactory::createBoard() {
+
+    QVector<QVector<std::shared_ptr<Square>>> squares;
+
+    for(int x = 0 ; x != sizeof(initial)/sizeof(initial[0]) ; x++) {
+
+        QVector<std::shared_ptr<Square>> squaresRow;
+        squaresRow.clear();
+
+        for(int y =0 ; y != sizeof(initial[0])/sizeof(initial[0][0]) ; y++) {
+
+            Square::SquareColour squareColour = (x + y) % 2 == 0 ? Square::SquareColour::WHITE : Square::SquareColour::BLACK;
+            Piece::PieceColour pieceColour = x == 0 || x == 1 ? Piece::PieceColour::BLACK :
+                          x == 6 || x == 7 ? Piece::PieceColour::WHITE : Piece::PieceColour::NONE;
+
+            Piece * piece = new Piece(pieceColour);
+
+            if (initial[x][y] == "r") piece = new Rook(pieceColour);
+            if (initial[x][y] == "k") piece = new Knight(pieceColour);
+            if (initial[x][y] == "b") piece = new Bishop(pieceColour);
+            if (initial[x][y] == "K") piece = new King(pieceColour);
+            if (initial[x][y] == "Q") piece = new Queen(pieceColour);
+            if (initial[x][y] == "p") piece = new Pawn(pieceColour);
+
+            squaresRow.append(std::shared_ptr<Square>(new Square(squareColour, piece)));
+        }
+        squares.append(squaresRow);
+    }
+    Board * b = new Board();
+    b->setSquares(squares);
+    return b;
+}
