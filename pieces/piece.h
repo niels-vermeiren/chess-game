@@ -9,16 +9,16 @@ class Piece : public QObject
     Q_PROPERTY(QString pieceColour READ pieceColour NOTIFY pieceColourChanged)
     public:
         enum PieceColour {NONE, WHITE, BLACK};
+
         Piece(PieceColour colour);
         QString pieceColour();
-
+        virtual QString pieceType() const;
         virtual ~Piece();
+
         bool operator!=(Piece &pc);
+
     private:
         PieceColour colour;
-
-    protected:
-        virtual QString pieceType() const;
 
     signals:
         void pieceColourChanged();

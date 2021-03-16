@@ -5,12 +5,12 @@
 class Bishop : public Piece
 {
     Q_OBJECT
-    Q_PROPERTY(QString piece READ piece WRITE setPiece NOTIFY pieceChanged)
+    Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
 
     public:
         Bishop(PieceColour colour);
         virtual ~Bishop();
-        QString piece() const;
+        QString pieceType() const;
 
     public slots:
         void setPiece(QString piece);
@@ -21,8 +21,6 @@ class Bishop : public Piece
     private:
         QString m_piece;
 
-    protected:
-        QString pieceType() const;
 };
 
 #endif // BISHOP_H

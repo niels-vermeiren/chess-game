@@ -8,10 +8,6 @@ QString Rook::pieceType() const {
     return QString("♜");
 }
 
-QString Rook::piece() const {
-    return QString("♜");
-};
-
 void Rook::setPiece(QString piece) {
     if(this->m_piece != piece) {
         this->m_piece = piece;

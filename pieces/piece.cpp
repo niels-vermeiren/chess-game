@@ -8,7 +8,6 @@ QString Piece::pieceType() const {
     return "";
 };
 
-
 QString Piece::pieceColour() {
     switch(this->colour) {
         case WHITE: return QString("white");

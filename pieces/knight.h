@@ -5,12 +5,12 @@
 class Knight : public Piece
 {
     Q_OBJECT
-    Q_PROPERTY(QString piece READ piece WRITE setPiece NOTIFY pieceChanged)
+    Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
 
     public:
         Knight(PieceColour colour);
         virtual ~Knight();
-        QString piece() const;
+        QString pieceType() const;
 
     public slots:
         void setPiece(QString piece);
@@ -20,10 +20,6 @@ class Knight : public Piece
 
     private:
         QString m_piece;
-
-    protected:
-        QString pieceType() const;
-
 };
 
 #endif // KNIGHT_H
