@@ -8,7 +8,6 @@ class King : public Piece
     Q_PROPERTY(QString piece READ piece WRITE setPiece NOTIFY pieceChanged)
     public:
         King(PieceColour colour);
-        QString pieceType() const;
         virtual ~King();
         QString piece() const;
 
@@ -20,6 +19,9 @@ class King : public Piece
 
     private:
         QString m_piece;
+
+    protected:
+        QString pieceType() const;
 };
 
 #endif // KING_H

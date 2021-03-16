@@ -11,10 +11,15 @@ class Piece : public QObject
         enum PieceColour {NONE, WHITE, BLACK};
         Piece(PieceColour colour);
         QString pieceColour();
-        virtual QString pieceType() const;
+
         virtual ~Piece();
+        bool operator!=(Piece &pc);
     private:
         PieceColour colour;
+
+    protected:
+        virtual QString pieceType() const;
+
     signals:
         void pieceColourChanged();
 };

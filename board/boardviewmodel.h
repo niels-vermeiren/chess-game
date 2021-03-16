@@ -12,7 +12,7 @@ class BoardViewModel : public QObject
 
     public:
         BoardViewModel();
-        QList<QList<Square*>> squares () const { return m_squares; }
+        QList<QList<Square*>> squares () const;
 
     private:
         QList<QList<Square *>> m_squares;

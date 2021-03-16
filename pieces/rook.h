@@ -9,7 +9,6 @@ class Rook : public Piece
     public:
         Rook(PieceColour colour);
         virtual ~Rook();
-        QString pieceType() const;
         QString piece() const;
 
     public slots:
@@ -20,6 +19,9 @@ class Rook : public Piece
 
     private:
         QString m_piece;
+
+    protected:
+        QString pieceType() const;
 };
 
 #endif // ROOK_H

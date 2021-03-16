@@ -10,7 +10,7 @@ QString Bishop::pieceType() const {
 }
 
 QString Bishop::piece() const {
-    return this->pieceType();
+    return QString("♝");
 };
 
 void Bishop::setPiece(QString piece) {

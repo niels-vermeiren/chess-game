@@ -8,7 +8,7 @@ QString Knight::pieceType() const {
     return QString("♞");
 }
 QString Knight::piece() const {
-    return this->pieceType();
+    return QString("♞");
 };
 
 void Knight::setPiece(QString piece) {

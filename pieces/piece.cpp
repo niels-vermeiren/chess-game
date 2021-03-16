@@ -1,9 +1,6 @@
 #include "pieces/piece.h"
 
-
-
-Piece::Piece(Piece::PieceColour colour)
-{
+Piece::Piece(Piece::PieceColour colour) {
     this->colour = colour;
 }
 
@@ -20,5 +17,10 @@ QString Piece::pieceColour() {
         default: return QString("");
     }
 }
+
+bool Piece::operator!=(Piece &pc) {
+    return this->pieceColour() != pc.pieceColour() || this->pieceType() != pc.pieceType();
+}
+
 
 Piece::~Piece(){}

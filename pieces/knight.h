@@ -10,7 +10,6 @@ class Knight : public Piece
     public:
         Knight(PieceColour colour);
         virtual ~Knight();
-        QString pieceType() const;
         QString piece() const;
 
     public slots:
@@ -21,6 +20,10 @@ class Knight : public Piece
 
     private:
         QString m_piece;
+
+    protected:
+        QString pieceType() const;
+
 };
 
 #endif // KNIGHT_H

@@ -9,7 +9,6 @@ class Pawn: public Piece
     public:
         Pawn(PieceColour colour);
         virtual ~Pawn();
-        QString pieceType() const;
         QString piece() const;
 
     public slots:
@@ -20,6 +19,10 @@ class Pawn: public Piece
 
     private:
         QString m_piece;
+
+    protected:
+        QString pieceType() const;
+
 };
 
 #endif // PAWN_H

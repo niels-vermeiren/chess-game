@@ -7,7 +7,7 @@ QString Queen::pieceType() const {
     return QString("♛");
 }
 QString Queen::piece() const {
-    return this->pieceType();
+    return QString("♛");
 };
 
 void Queen::setPiece(QString piece) {

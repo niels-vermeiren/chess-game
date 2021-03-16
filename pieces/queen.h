@@ -9,7 +9,6 @@ class Queen : public Piece
     public:
         Queen(PieceColour colour);
         virtual ~Queen();
-        QString pieceType() const;
         QString piece() const;
 
     public slots:
@@ -20,6 +19,10 @@ class Queen : public Piece
 
     private:
         QString m_piece;
+
+    protected:
+        QString pieceType() const;
+
 };
 
 #endif // QUEEN_H

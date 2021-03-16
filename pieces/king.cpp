@@ -10,7 +10,7 @@ QString King::pieceType() const {
 }
 
 QString King::piece() const {
-    return this->pieceType();
+    return QString("♚");
 };
 
 void King::setPiece(QString piece) {

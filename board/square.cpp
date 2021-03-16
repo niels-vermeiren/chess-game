@@ -2,19 +2,12 @@
 
 Square::Square(){}
 
-Square::Square(SquareColour colour, Piece *piece)
-{
+Square::Square(SquareColour colour, Piece *piece) {
     this->colour = colour;
-    this->piece = piece;
     this->m_piece = piece;
-    this->m_squareColour = getColour();
 }
 
-Piece & Square::getPiece() {
-    return * this->piece;
-}
-
-QString Square::getColour() const {
+QString Square::squareColour() const {
     switch(this->colour) {
         case WHITE: return QString("#076a91");
         case BLACK: return QString("#ad9a4c");
@@ -22,51 +15,37 @@ QString Square::getColour() const {
     }
 }
 
-QString Square::squareColour() const {
-    return this->getColour();
-}
-
-void Square::setSquareColour(QString squareColour) {
-    if(this->m_squareColour != squareColour) {
-        this->m_squareColour = squareColour;
-        emit squareColourChanged();
-    }
-}
-
 void Square::setPieceOnSquare(Piece * piece){
-    if (piece->pieceColour() != this->m_piece->pieceColour() || piece->pieceType() != this->m_piece->pieceType()) {
+    if (*this->m_piece != *piece) {
+        delete this->m_piece;
         this->m_piece = piece;
         emit squarePieceChanged();
     }
-}
-
-void Square::setPiece(Piece &piece) {
-    this->piece = &piece;
 }
 
 Piece * Square::getPieceOnSquare() const {
     return this->m_piece;
 }
 
-void Square::setPiez(QString pieceType, QString pieceColour) {
+void Square::changePiece(QString pieceType, QString pieceColour) {
 
     Piece::PieceColour colour = pieceColour == "white"? Piece::PieceColour::WHITE : Piece::PieceColour::BLACK;
 
-    Piece * piece = new Piece(colour);
-    if(pieceType == "♝") piece = new Bishop(colour);
-    if(pieceType == "♚") piece = new King(colour);
-    if(pieceType == "♞") piece = new Knight(colour);
-    if(pieceType == "♟") piece = new Pawn(colour);
-    if(pieceType == "♛") piece = new Queen(colour);
-    if(pieceType == "♜") piece = new Rook(colour);
+    Piece * piece;
 
+    if(pieceType == "♝") piece = new Bishop(colour);
+    else if(pieceType == "♚") piece = new King(colour);
+    else if(pieceType == "♞") piece = new Knight(colour);
+    else if(pieceType == "♟") piece = new Pawn(colour);
+    else if(pieceType == "♛") piece = new Queen(colour);
+    else if(pieceType == "♜") piece = new Rook(colour);
+    else piece = new Piece(colour);
 
     this->setPieceOnSquare(piece);
 }
 
-Square::~Square()
-{
-    delete piece;
+Square::~Square() {
+    delete m_piece;
 }
 
 

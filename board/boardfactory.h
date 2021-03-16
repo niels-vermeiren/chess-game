@@ -1,13 +1,12 @@
 #ifndef BOARDFACTORY_H
 #define BOARDFACTORY_H
 #include <memory>
-#include "board.h"
+#include "board/square.h"
 #include <string>
 #include <vector>
-class BoardFactory
-{
+
+class BoardFactory {
     public:
         static QList<QList<Square *>> createBoard();
-
 };
 #endif // BOARDFACTORY_H

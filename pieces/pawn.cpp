@@ -7,7 +7,7 @@ QString Pawn::pieceType() const {
     return QString("♟");
 }
 QString Pawn::piece() const {
-    return this->pieceType();
+    return QString("♟");
 };
 
 void Pawn::setPiece(QString piece) {

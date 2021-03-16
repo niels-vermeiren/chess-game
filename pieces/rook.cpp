@@ -1,20 +1,15 @@
 #include "pieces/rook.h"
 
-Rook::Rook(PieceColour colour) : Piece(colour)
-{
-}
+Rook::Rook(PieceColour colour) : Piece(colour) {}
 
-Rook::~Rook()
-{
-    //dtor
-}
+Rook::~Rook() {}
+
 QString Rook::pieceType() const {
     return QString("♜");
 }
 
-
 QString Rook::piece() const {
-    return this->pieceType();
+    return QString("♜");
 };
 
 void Rook::setPiece(QString piece) {
