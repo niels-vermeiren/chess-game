@@ -3,7 +3,13 @@
 #include <memory>
 #include "board/square.h"
 #include <string>
-#include <vector>
+#include "pieces/piece.h"
+#include "pieces/knight.h"
+#include "pieces/bishop.h"
+#include "pieces/pawn.h"
+#include "pieces/queen.h"
+#include "pieces/rook.h"
+#include "pieces/king.h"
 
 class BoardFactory {
     public:

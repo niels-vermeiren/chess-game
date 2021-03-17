@@ -1,13 +1,4 @@
 #include "board/boardfactory.h"
-#include <string>
-#include "board/square.h"
-#include "pieces/piece.h"
-#include "pieces/knight.h"
-#include "pieces/bishop.h"
-#include "pieces/pawn.h"
-#include "pieces/queen.h"
-#include "pieces/rook.h"
-#include "pieces/king.h"
 
 const std::string initial[8][8] = {
         {"r", "k", "b", "K", "Q", "b", "k", "r"},
@@ -43,6 +34,9 @@ QList<QList<Square *>> BoardFactory::createBoard() {
             if (initial[x][y] == "K") piece = new King(pieceColour);
             if (initial[x][y] == "Q") piece = new Queen(pieceColour);
             if (initial[x][y] == "p") piece = new Pawn(pieceColour);
+
+            piece->row = x;
+            piece->col = y;
 
             squaresRow.append(new Square(squareColour, piece));
         }

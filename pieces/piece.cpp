@@ -22,4 +22,6 @@ bool Piece::operator!=(Piece &pc) {
 }
 
 
-Piece::~Piece(){}
+Piece::~Piece(){
+
+}

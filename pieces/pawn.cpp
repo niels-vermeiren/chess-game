@@ -1,7 +1,6 @@
 #include "pawn.h"
 
-Pawn::Pawn(PieceColour colour): Piece(colour) {
-}
+Pawn::Pawn(PieceColour colour): Piece(colour) {}
 Pawn::~Pawn() {}
 
 QString Pawn::pieceType() const {
