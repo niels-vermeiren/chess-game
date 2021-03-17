@@ -35,9 +35,6 @@ QList<QList<Square *>> BoardFactory::createBoard() {
             if (initial[x][y] == "Q") piece = new Queen(pieceColour);
             if (initial[x][y] == "p") piece = new Pawn(pieceColour);
 
-            piece->row = x;
-            piece->col = y;
-
             squaresRow.append(new Square(squareColour, piece));
         }
         squares.append(squaresRow);
