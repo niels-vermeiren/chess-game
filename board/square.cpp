@@ -31,15 +31,18 @@ void Square::changePiece(QString pieceType, QString pieceColour) {
 
     Piece::PieceColour colour = pieceColour == "white"? Piece::PieceColour::WHITE : Piece::PieceColour::BLACK;
 
+    int row = this->m_piece->getRow();
+    int col = this->m_piece->getCol();
+
     Piece * piece;
 
-    if(pieceType == "♝") piece = new Bishop(colour);
-    else if(pieceType == "♚") piece = new King(colour);
-    else if(pieceType == "♞") piece = new Knight(colour);
-    else if(pieceType == "♟") piece = new Pawn(colour);
-    else if(pieceType == "♛") piece = new Queen(colour);
-    else if(pieceType == "♜") piece = new Rook(colour);
-    else piece = new Piece(colour);
+    if(pieceType == "♝") piece = new Bishop(colour, row, col);
+    else if(pieceType == "♚") piece = new King(colour, row, col);
+    else if(pieceType == "♞") piece = new Knight(colour, row, col);
+    else if(pieceType == "♟") piece = new Pawn(colour, row, col);
+    else if(pieceType == "♛") piece = new Queen(colour, row, col);
+    else if(pieceType == "♜") piece = new Rook(colour, row, col);
+    else piece = new Piece(colour, row, col);
 
     this->setPieceOnSquare(piece);
 }

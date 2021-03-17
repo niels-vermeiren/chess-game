@@ -1,6 +1,6 @@
 #include "knight.h"
 
-Knight::Knight(PieceColour colour) : Piece(colour) {
+Knight::Knight(PieceColour colour, int row, int col) : Piece(colour, row, col) {
 }
 
 Knight::~Knight() {}

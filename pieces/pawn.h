@@ -6,7 +6,7 @@ class Pawn: public Piece
     Q_OBJECT
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
     public:
-        Pawn(PieceColour colour);
+        Pawn(PieceColour colour, int row, int col);
         virtual ~Pawn();
         QString pieceType() const;
 

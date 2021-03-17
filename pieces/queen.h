@@ -7,7 +7,7 @@ class Queen : public Piece
     Q_OBJECT
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
     public:
-        Queen(PieceColour colour);
+        Queen(PieceColour colour, int row, int col);
         virtual ~Queen();
         QString pieceType() const;
 

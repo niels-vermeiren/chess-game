@@ -26,14 +26,14 @@ QList<QList<Square *>> BoardFactory::createBoard() {
             Piece::PieceColour pieceColour = x == 0 || x == 1 ? Piece::PieceColour::BLACK :
                           x == 6 || x == 7 ? Piece::PieceColour::WHITE : Piece::PieceColour::NONE;
 
-            Piece * piece = new Piece(pieceColour);
+            Piece * piece = new Piece(pieceColour, x, y);
 
-            if (initial[x][y] == "r") piece = new Rook(pieceColour);
-            if (initial[x][y] == "k") piece = new Knight(pieceColour);
-            if (initial[x][y] == "b") piece = new Bishop(pieceColour);
-            if (initial[x][y] == "K") piece = new King(pieceColour);
-            if (initial[x][y] == "Q") piece = new Queen(pieceColour);
-            if (initial[x][y] == "p") piece = new Pawn(pieceColour);
+            if (initial[x][y] == "r") piece = new Rook(pieceColour, x, y);
+            if (initial[x][y] == "k") piece = new Knight(pieceColour, x, y);
+            if (initial[x][y] == "b") piece = new Bishop(pieceColour, x, y);
+            if (initial[x][y] == "K") piece = new King(pieceColour, x, y);
+            if (initial[x][y] == "Q") piece = new Queen(pieceColour, x, y);
+            if (initial[x][y] == "p") piece = new Pawn(pieceColour, x, y);
 
             squaresRow.append(new Square(squareColour, piece));
         }

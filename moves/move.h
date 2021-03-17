@@ -2,12 +2,15 @@
 #define MOVE_H
 
 #include <QObject>
+#include "moves/possiblemove.h"
+#include "board/square.h"
 
 class Move : public QObject
 {
     Q_OBJECT
 public:
-    explicit Move(QObject *parent = nullptr);
+    Move();
+    Q_INVOKABLE virtual QList<PossibleMove *> getPossibleMoves(const int x, const int y, const QList<QList<Square *>> board);
 
 signals:
 

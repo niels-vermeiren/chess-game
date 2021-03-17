@@ -8,7 +8,7 @@ class Knight : public Piece
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
 
     public:
-        Knight(PieceColour colour);
+        Knight(PieceColour colour, int row, int col);
         virtual ~Knight();
         QString pieceType() const;
 

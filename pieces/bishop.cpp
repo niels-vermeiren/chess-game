@@ -1,8 +1,7 @@
 #include "bishop.h"
 
-Bishop::Bishop(PieceColour colour) : Piece(colour) {
+Bishop::Bishop(PieceColour colour, int row, int col) : Piece(colour, row, col) {}
 
-}
 Bishop::~Bishop() {}
 
 QString Bishop::pieceType() const {

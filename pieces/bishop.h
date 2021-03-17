@@ -8,7 +8,7 @@ class Bishop : public Piece
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
 
     public:
-        Bishop(PieceColour colour);
+        Bishop(PieceColour colour, int row, int col);
         virtual ~Bishop();
         QString pieceType() const;
 
