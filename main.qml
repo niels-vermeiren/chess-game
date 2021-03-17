@@ -20,6 +20,11 @@ Window {
             spacing: 3;
 
             Repeater {
+                property int activePieceRow: -1
+                property int activePieceCol: -1
+                property string activePiece: ""
+                property string activePieceColour: ""
+
                 model: 64
                 id: boardRepeater
                 function clearPosMoves () {
@@ -56,22 +61,56 @@ Window {
                         color: "white"
                         radius: 40
                         opacity: 0.5
+                        z: 100
+                        MouseArea {
+                             anchors.fill: parent
+                             hoverEnabled: true
+                             onEntered: parent.opacity = 0.8
+                             onExited: parent.opacity = 0.5
+                             onClicked: {
+                                 mouse.accepted = false
+                                 if (BoardModel && posMoveRect.visible) {
+                                     BoardModel.squares[boardRepeater.activePieceRow][boardRepeater.activePieceCol].changePiece("", "");
+                                     BoardModel.squares[row][col].changePiece(boardRepeater.activePiece, boardRepeater.activePieceColour);
+                                 }
+                                 boardRepeater.clearPosMoves();
+                             }
+                         }
+
                    }
 
                    MouseArea {
                         anchors.fill: parent
                         hoverEnabled: true
                         onEntered: parent.color = "#3ec73a"
+
+                        propagateComposedEvents: true
+                        z: 99
                         onExited: parent.color = parent.squareColour
                         onPressed: parent.opacity = 0.8
                         onReleased: parent.opacity = 1.0
                         onClicked: {
                             if(BoardModel) {
                                 var posMoves =  BoardModel.clickedOnPiece(row, col);
-                                var index = posMoves[0][0] * 8 + posMoves[0][1];
-                                if(boardRepeater.itemAt(index).children[1].visible) boardRepeater.clearPosMoves();
-                                else {
+
+
+
+
+                                if (!posMoves[0]) {
                                     boardRepeater.clearPosMoves();
+                                    return;
+                                }
+
+                                var index = posMoves[0][0] * 8 + posMoves[0][1];
+                                if(boardRepeater.itemAt(index).children[1].visible) {
+
+                                    boardRepeater.clearPosMoves();
+                                } else {
+                                    boardRepeater.clearPosMoves();
+                                    boardRepeater.activePieceRow = row;
+                                    boardRepeater.activePieceCol = col;
+                                    boardRepeater.activePieceColour = BoardModel.squares[row][col].piece.pieceColour;
+                                    boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
                                     boardRepeater.itemAt(index).children[1].visible = true;
                                 }
                             }

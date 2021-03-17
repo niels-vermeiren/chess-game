@@ -20,5 +20,17 @@ QList<QList<int>> PawnMove::getPossibleMoves(Piece * piece, QList<QList<Square *
         possibleMoves.append(move);
     }
 
+    //Piece is white, is at start position and 2 squares above is empty
+    if(isWhitePiece && row == 6 && board[4][col]->getPieceOnSquare()->pieceType() == "") {
+        QList<int> move = {4, col};
+        possibleMoves.append(move);
+    }
+
+    //Piece is black, is at start position and 2 squares below is empty
+    if(!isWhitePiece && row == 1 && board[3][col]->getPieceOnSquare()->pieceType() == "") {
+        QList<int> move = {3, col};
+        possibleMoves.append(move);
+    }
+
     return possibleMoves;
 }

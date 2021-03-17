@@ -5,6 +5,7 @@
 #include "board/square.h"
 #include "board/boardfactory.h"
 #include "moves/pawnmove.h"
+#include "moves/movefactory.h"
 
 class BoardViewModel : public QObject
 {

@@ -9,7 +9,8 @@ QList<QList<Square*>> BoardViewModel::squares () const {
 }
 
 QList<QList<int>> BoardViewModel::clickedOnPiece(int row, int col) {
-    PawnMove pawnMove;
-    QList<QList<int>> posMoves = pawnMove.getPossibleMoves(this->squares()[row][col]->getPieceOnSquare(), this->squares());
+    Piece * piece = this->squares()[row][col]->getPieceOnSquare();
+    Move * move = MoveFactory::createMoveStrategy(piece);
+    QList<QList<int>> posMoves = move->getPossibleMoves(piece, this->squares());
     return posMoves;
 }
