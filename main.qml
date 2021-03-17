@@ -21,6 +21,12 @@ Window {
 
             Repeater {
                 model: 64
+                id: boardRepeater
+                function clearPosMoves () {
+                    for (var i=0; i!== boardRepeater.count ; i++) {
+                        boardRepeater.itemAt(i).children[1].visible = false;
+                    }
+                }
 
                 Rectangle {
                     id: square;
@@ -28,6 +34,7 @@ Window {
                     property int col: index % 8;
                     property string squareColour: BoardModel ? BoardModel.squares[row][col].squareColour : ""
                     property string pieceColour: BoardModel ?  BoardModel.squares[row][col].piece.pieceColour : ""
+
                     width: 70;
                     height: 70
                     color: squareColour
@@ -40,6 +47,17 @@ Window {
                         anchors.centerIn: parent
                    }
 
+                   Rectangle {
+                        id: posMoveRect
+                        visible: false
+                        anchors.centerIn: parent
+                        width: 40
+                        height: 40
+                        color: "white"
+                        radius: 40
+                        opacity: 0.5
+                   }
+
                    MouseArea {
                         anchors.fill: parent
                         hoverEnabled: true
@@ -47,6 +65,17 @@ Window {
                         onExited: parent.color = parent.squareColour
                         onPressed: parent.opacity = 0.8
                         onReleased: parent.opacity = 1.0
+                        onClicked: {
+                            if(BoardModel) {
+                                var posMoves =  BoardModel.clickedOnPiece(row, col);
+                                var index = posMoves[0][0] * 8 + posMoves[0][1];
+                                if(boardRepeater.itemAt(index).children[1].visible) boardRepeater.clearPosMoves();
+                                else {
+                                    boardRepeater.clearPosMoves();
+                                    boardRepeater.itemAt(index).children[1].visible = true;
+                                }
+                            }
+                        }
                    }
                 }
             }

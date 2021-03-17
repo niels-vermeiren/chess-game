@@ -4,6 +4,7 @@
 #include <QObject>
 #include "board/square.h"
 #include "board/boardfactory.h"
+#include "moves/pawnmove.h"
 
 class BoardViewModel : public QObject
 {
@@ -12,7 +13,8 @@ class BoardViewModel : public QObject
 
     public:
         BoardViewModel();
-        QList<QList<Square*>> squares () const;
+        QList<QList<Square *>> squares () const;
+        Q_INVOKABLE QList<QList<int>> clickedOnPiece(int row, int col);
 
     private:
         QList<QList<Square *>> m_squares;
