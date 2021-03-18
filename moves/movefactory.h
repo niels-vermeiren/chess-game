@@ -2,6 +2,7 @@
 #define MOVEFACTORY_H
 #include "moves/move.h"
 #include "moves/pawnmove.h"
+#include "moves/knightmove.h"
 
 class MoveFactory
 {

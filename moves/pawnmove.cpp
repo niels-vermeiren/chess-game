@@ -6,7 +6,7 @@ QList<QList<int>> PawnMove::getPossibleMoves(Piece * piece, QList<QList<Square *
     QList<QList<int>> possibleMoves;
     const bool isWhitePiece = piece->pieceColour() == "white";
     const int row = piece->getRow();
-    const int col =piece->getCol();
+    const int col = piece->getCol();
 
     //Piece is white and square above is empty
     if(isWhitePiece && row - 1 >= 0 && getPieceType(board, row - 1, col) == "") {
