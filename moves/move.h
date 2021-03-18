@@ -11,8 +11,9 @@ public:
     Move();
     Q_INVOKABLE virtual QList<QList<int>> getPossibleMoves(Piece * piece, QList<QList<Square *>> board);
 
-signals:
-
+protected:
+    QString getPieceType(QList<QList<Square *>> board, int row, int col);
+    QString getPieceColour(QList<QList<Square *>> board, int row, int col);
 };
 
 #endif // MOVE_H
