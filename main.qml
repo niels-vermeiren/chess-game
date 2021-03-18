@@ -93,25 +93,25 @@ Window {
                             if(BoardModel) {
                                 var posMoves =  BoardModel.clickedOnPiece(row, col);
 
-
-
-
                                 if (!posMoves[0]) {
                                     boardRepeater.clearPosMoves();
                                     return;
                                 }
+                                for (var i=0; i!== posMoves.count ; i++) {
+                                    if(!posMoves[i]) break;
+                                    var index = posMoves[i][0] * 8 + posMoves[i][1];
+                                    if(boardRepeater.itemAt(index).children[1].visible) {
 
-                                var index = posMoves[0][0] * 8 + posMoves[0][1];
-                                if(boardRepeater.itemAt(index).children[1].visible) {
+                                        boardRepeater.clearPosMoves();
+                                    } else {
+                                        if (i === 0) boardRepeater.clearPosMoves();
 
-                                    boardRepeater.clearPosMoves();
-                                } else {
-                                    boardRepeater.clearPosMoves();
-                                    boardRepeater.activePieceRow = row;
-                                    boardRepeater.activePieceCol = col;
-                                    boardRepeater.activePieceColour = BoardModel.squares[row][col].piece.pieceColour;
-                                    boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
-                                    boardRepeater.itemAt(index).children[1].visible = true;
+                                        boardRepeater.activePieceRow = row;
+                                        boardRepeater.activePieceCol = col;
+                                        boardRepeater.activePieceColour = BoardModel.squares[row][col].piece.pieceColour;
+                                        boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
+                                        boardRepeater.itemAt(index).children[1].visible = true;
+                                    }
                                 }
                             }
                         }
