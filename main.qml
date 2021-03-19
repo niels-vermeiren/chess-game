@@ -28,9 +28,7 @@ Window {
                 model: 64
                 id: boardRepeater
                 function clearPosMoves () {
-                    for (var i=0; i!== boardRepeater.count ; i++) {
-                        boardRepeater.itemAt(i).children[1].visible = false;
-                    }
+                    for (var i=0; i!== boardRepeater.count ; i++) boardRepeater.itemAt(i).children[1].visible = false;
                 }
 
                 Rectangle {
@@ -60,13 +58,13 @@ Window {
                         height: 40
                         color: "white"
                         radius: 40
-                        opacity: 0.5
+                        opacity: 0.4
                         z: 100
                         MouseArea {
                              anchors.fill: parent
                              hoverEnabled: true
                              onEntered: parent.opacity = 0.8
-                             onExited: parent.opacity = 0.5
+                             onExited: parent.opacity = 0.4
                              onClicked: {
                                  mouse.accepted = false
                                  if (BoardModel && posMoveRect.visible) {
@@ -92,34 +90,25 @@ Window {
                         onClicked: {
                             if(BoardModel) {
                                 var posMoves =  BoardModel.clickedOnPiece(row, col);
+                                if (!posMoves[0]) boardRepeater.clearPosMoves();
 
-                                if (!posMoves[0]) {
-                                    boardRepeater.clearPosMoves();
-                                    return;
-                                }
                                 for (var i=0; i!== posMoves.count ; i++) {
                                     if(!posMoves[i]) break;
                                     var index = posMoves[i][0] * 8 + posMoves[i][1];
-                                    if(boardRepeater.itemAt(index).children[1].visible) {
 
-                                        boardRepeater.clearPosMoves();
-                                    } else {
-                                        if (i === 0) boardRepeater.clearPosMoves();
-
-                                        boardRepeater.activePieceRow = row;
-                                        boardRepeater.activePieceCol = col;
-                                        boardRepeater.activePieceColour = BoardModel.squares[row][col].piece.pieceColour;
-                                        boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
-                                        boardRepeater.itemAt(index).children[1].visible = true;
-                                    }
+                                    if (i === 0) boardRepeater.clearPosMoves();
+                                    boardRepeater.activePieceRow = row;
+                                    boardRepeater.activePieceCol = col;
+                                    boardRepeater.activePieceColour = BoardModel.squares[row][col].piece.pieceColour;
+                                    boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
+                                    boardRepeater.itemAt(index).children[1].visible = true;
                                 }
                             }
                         }
-                   }
+                    }
                 }
             }
         }
-
         Components.Sidebar {}
      }
  }
