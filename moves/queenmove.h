@@ -1,13 +1,12 @@
-#ifndef BISHOPMOVE_H
-#define BISHOPMOVE_H
-
+#ifndef QUEENMOVE_H
+#define QUEENMOVE_H
 #include "moves/move.h"
 
-class BishopMove : public Move
+class QueenMove : public Move
 {
 public:
-    BishopMove();
+    QueenMove();
     QList<QList<int>> getPossibleMoves(Piece * piece, QList<QList<Square *>> board);
 };
 
-#endif // BISHOPMOVE_H
+#endif // QUEENMOVE_H
