@@ -13,6 +13,7 @@ public:
 
 protected:
     QList<QList<int>> getAllMovesInDirection(bool isWhitePiece, int row, int col, int directionRow, int directionCol, QList<QList<Square *>> board);
+    QList<QList<int>> getOneMoveInDirection(bool isWhitePiece, int row, int col, int directionRow, int directionCol, QList<QList<Square *>> board);
     QString getPieceType(QList<QList<Square *>> board, int row, int col);
     QString getPieceColour(QList<QList<Square *>> board, int row, int col);
 };

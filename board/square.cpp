@@ -29,7 +29,8 @@ Piece * Square::getPieceOnSquare() const {
 
 void Square::changePiece(QString pieceType, QString pieceColour) {
 
-    Piece::PieceColour colour = pieceColour == "white"? Piece::PieceColour::WHITE : Piece::PieceColour::BLACK;
+    Piece::PieceColour colour = pieceColour == "white" ? Piece::PieceColour::WHITE :
+                                pieceColour == "black" ? Piece::PieceColour::BLACK : Piece::PieceColour::NONE;
 
     int row = this->m_piece->getRow();
     int col = this->m_piece->getCol();

@@ -39,3 +39,23 @@ QList<QList<int>> Move::getAllMovesInDirection(bool isWhitePiece, int row, int c
 
     return possibleMoves;
 }
+
+QList<QList<int>> Move::getOneMoveInDirection(bool isWhitePiece, int row, int col, int directionRow, int directionCol, QList<QList<Square *>> board) {
+    QList<QList<int>> possibleMoves;
+    int stepRow = row + directionRow;
+    int stepCol = col + directionCol;
+
+    //Piece is white and square in direction is empty or black piece
+    if(isWhitePiece && stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && getPieceColour(board, stepRow, stepCol) != "white") {
+        QList<int> move = {stepRow, stepCol};
+        possibleMoves.append(move);
+    }
+
+    //Piece is black and square in direction is empty or white piece
+    if(!isWhitePiece && stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && getPieceColour(board, stepRow, stepCol) != "black") {
+        QList<int> move = {stepRow, stepCol};
+        possibleMoves.append(move);
+    }
+
+    return possibleMoves;
+}

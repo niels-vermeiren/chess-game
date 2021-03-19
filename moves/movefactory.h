@@ -6,6 +6,7 @@
 #include "moves/bishopmove.h"
 #include "moves/rookmove.h"
 #include "moves/queenmove.h"
+#include "moves/kingmove.h"
 
 class MoveFactory
 {
