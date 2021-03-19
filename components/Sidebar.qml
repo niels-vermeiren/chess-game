@@ -14,7 +14,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             Text {
-                text: "Move piece"
+                text: "New Game"
                 color: "black";
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
@@ -27,8 +27,7 @@ Item {
                  onPressed: parent.opacity = 0.8
                  onReleased: parent.opacity = 1.0
                  onClicked: {
-                     BoardModel.squares[6][3].changePiece("", "");
-                     BoardModel.squares[4][3].changePiece("♟", "white");
+                     BoardModel.newGame();
                  }
             }
         }

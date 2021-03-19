@@ -14,3 +14,12 @@ QList<QList<int>> BoardViewModel::clickedOnPiece(int row, int col) {
     QList<QList<int>> posMoves = move->getPossibleMoves(piece, this->squares());
     return posMoves;
 }
+
+void BoardViewModel::newGame() {
+    this->setSquares(BoardFactory::createBoard());
+}
+
+void BoardViewModel::setSquares(QList<QList<Square *>> squares) {
+    this->m_squares = squares;
+    emit squaresChanged();
+}

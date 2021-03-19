@@ -10,15 +10,17 @@
 class BoardViewModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QList<QList<Square *>> squares READ squares NOTIFY squaresChanged)
+    Q_PROPERTY(QList<QList<Square *>> squares READ squares WRITE setSquares NOTIFY squaresChanged)
 
     public:
         BoardViewModel();
         QList<QList<Square *>> squares () const;
         Q_INVOKABLE QList<QList<int>> clickedOnPiece(int row, int col);
+        Q_INVOKABLE void newGame();
 
     private:
         QList<QList<Square *>> m_squares;
+        void setSquares(QList<QList<Square *>> squares);
 
     signals:
         void squaresChanged();
