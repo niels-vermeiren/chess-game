@@ -17,7 +17,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             Text {
                 id: txtBtn
-                text: "New Game"
+                text: qsTr("New Game")
                 color: "white";
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter

@@ -24,6 +24,7 @@ Window {
                 property int activePieceCol: -1
                 property string activePiece: ""
                 property string activePieceColour: ""
+                property bool whiteTurn: true
 
                 model: 64
                 id: boardRepeater
@@ -68,6 +69,7 @@ Window {
                              onClicked: {
                                  mouse.accepted = false
                                  if (BoardModel && posMoveRect.visible) {
+                                     boardRepeater.whiteTurn = !boardRepeater.whiteTurn;
                                      BoardModel.squares[boardRepeater.activePieceRow][boardRepeater.activePieceCol].changePiece("", "");
                                      BoardModel.squares[row][col].changePiece(boardRepeater.activePiece, boardRepeater.activePieceColour);
                                  }
@@ -89,6 +91,11 @@ Window {
                         onReleased: parent.opacity = 1.0
                         onClicked: {
                             if(BoardModel) {
+
+                                if(BoardModel.squares[row][col].piece.pieceColour !== "" && (boardRepeater.whiteTurn && BoardModel.squares[row][col].piece.pieceColour !== "white")
+                                        || (!boardRepeater.whiteTurn && BoardModel.squares[row][col].piece.pieceColour !== "black")) return;
+
+
                                 var posMoves =  BoardModel.clickedOnPiece(row, col);
                                 if (!posMoves[0]) boardRepeater.clearPosMoves();
 
