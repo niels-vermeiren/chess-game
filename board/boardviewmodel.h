@@ -6,17 +6,20 @@
 #include "board/boardfactory.h"
 #include "moves/pawnmove.h"
 #include "moves/movefactory.h"
+#include "game/gamerules.h"
 
 class BoardViewModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QList<QList<Square *>> squares READ squares WRITE setSquares NOTIFY squaresChanged)
+    Q_PROPERTY(bool checkForBlack READ isCheckForBlack NOTIFY checkForBlackChanged)
 
     public:
         BoardViewModel();
         QList<QList<Square *>> squares () const;
         Q_INVOKABLE QList<QList<int>> clickedOnPiece(int row, int col);
         Q_INVOKABLE void newGame();
+        Q_INVOKABLE bool isCheckForBlack();
 
     private:
         QList<QList<Square *>> m_squares;
@@ -24,6 +27,7 @@ class BoardViewModel : public QObject
 
     signals:
         void squaresChanged();
+        void checkForBlackChanged();
 };
 
 #endif // BOARDVIEWMODEL_H

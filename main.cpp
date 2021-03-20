@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("BoardModel", boardVm);
 
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/Board.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)

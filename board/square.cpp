@@ -46,6 +46,7 @@ void Square::changePiece(QString pieceType, QString pieceColour) {
     else piece = new Piece(colour, row, col);
 
     this->setPieceOnSquare(piece);
+
 }
 
 Square::~Square() {

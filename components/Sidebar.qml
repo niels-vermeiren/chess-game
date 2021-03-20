@@ -1,6 +1,4 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
-import QtQuick.Controls.Material 2.4
 
 Item {
     Rectangle {
@@ -23,6 +21,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 font.bold: true
             }
+
             MouseArea {
                  anchors.fill: parent
                  hoverEnabled: true
@@ -36,8 +35,16 @@ Item {
                  }
                  onPressed: parent.opacity = 0.8
                  onReleased: parent.opacity = 1.0
-                 onClicked: BoardModel.newGame();
+                 onClicked: BoardModel.newGame()
             }
+        }
+        Text {
+            id: isCheckBlack
+            text: boardRepeater.isCheck ? "Check" : ""
+            color: "white"
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 200
+            font.bold: true
         }
      }
 }

@@ -24,3 +24,9 @@ void BoardViewModel::setSquares(QList<QList<Square *>> squares) {
     this->m_squares = squares;
     emit squaresChanged();
 }
+
+bool BoardViewModel::isCheckForBlack() {
+    bool res = GameRules::isCheckForBlack(this->squares());
+    emit checkForBlackChanged();
+    return res;
+}
