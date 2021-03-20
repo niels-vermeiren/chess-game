@@ -5,8 +5,8 @@
 class KingMove : public Move
 {
 public:
-    KingMove();
-    QList<QList<int>> getPossibleMoves(Piece * piece, QList<QList<Square *>> board);
+    KingMove(Piece * piece, QList<QList<Square *>> squares);
+    QList<QList<int>> getPossibleMoves();
 
 };
 

@@ -6,8 +6,8 @@
 class RookMove : public Move
 {
 public:
-    RookMove();
-    QList<QList<int>> getPossibleMoves(Piece * piece, QList<QList<Square *>> board);
+    RookMove(Piece * piece, QList<QList<Square *>> squares);
+    QList<QList<int>> getPossibleMoves();
 };
 
 #endif // ROOKMOVE_H

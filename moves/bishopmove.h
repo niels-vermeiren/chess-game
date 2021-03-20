@@ -6,8 +6,8 @@
 class BishopMove : public Move
 {
 public:
-    BishopMove();
-    QList<QList<int>> getPossibleMoves(Piece * piece, QList<QList<Square *>> board);
+    BishopMove(Piece * piece, QList<QList<Square *>> squares);
+    QList<QList<int>> getPossibleMoves();
 };
 
 #endif // BISHOPMOVE_H

@@ -5,8 +5,8 @@
 class QueenMove : public Move
 {
 public:
-    QueenMove();
-    QList<QList<int>> getPossibleMoves(Piece * piece, QList<QList<Square *>> board);
+    QueenMove(Piece * piece, QList<QList<Square *>> squares);
+    QList<QList<int>> getPossibleMoves();
 };
 
 #endif // QUEENMOVE_H

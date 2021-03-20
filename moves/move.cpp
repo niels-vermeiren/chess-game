@@ -1,28 +1,38 @@
 #include "move.h"
 
-Move::Move() {}
-
-QList<QList<int>> Move::getPossibleMoves(Piece * piece, QList<QList<Square *>> board) {
-    QList<QList<int>> move;
-    return move;
+Move::Move(Piece * piece, QList<QList<Square *>> squares) {
+    this->piece = piece;
+    this->squares = squares;
 }
 
-QString Move::getPieceType(QList<QList<Square *>> board, int row, int col) {
-    return board[row][col]->getPieceOnSquare()->pieceType();
+Move::~Move() {
+    delete this->piece;
+    for (int i = 0; i != this->squares.count(); i++)
+        for (int j = 0 ; j != this->squares[i].count(); j++ )
+            delete this->squares[i][j];
 }
 
-QString Move::getPieceColour(QList<QList<Square *>> board, int row, int col) {
-    return board[row][col]->getPieceOnSquare()->pieceColour();
+QList<QList<int>> Move::getPossibleMoves() {
+    return {{}};
 }
 
-QList<QList<int>> Move::getAllMovesInDirection(bool isWhitePiece, int row, int col, int directionRow, int directionCol, QList<QList<Square *>> board) {
+QString Move::getPieceType(int row, int col) {
+    return this->squares[row][col]->getPieceOnSquare()->pieceType();
+}
+
+QString Move::getPieceColour(int row, int col) {
+    return this->squares[row][col]->getPieceOnSquare()->pieceColour();
+}
+
+QList<QList<int>> Move::getAllMovesInDirection(int row, int col, int directionRow, int directionCol) {
+    bool isWhitePiece = this->piece->pieceColour() == "white";
     QList<QList<int>> possibleMoves;
     int step = 1;
     int stepRow = row + (directionRow * step);
     int stepCol = col + (directionCol * step);
 
-    //Bishop can move to the direction, until it comes accross another piece
-    while (stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && getPieceType(board, stepRow, stepCol)  == "") {
+    //Can move to the direction, until it comes accross another piece
+    while (stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && getPieceType(stepRow, stepCol)  == "") {
         QList<int> move = {stepRow, stepCol};
         possibleMoves.append(move);
         step ++;
@@ -31,8 +41,8 @@ QList<QList<int>> Move::getAllMovesInDirection(bool isWhitePiece, int row, int c
     }
 
     //If one step further is opposite colour piece, give possibility to capture
-    if (stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && ((isWhitePiece && getPieceColour(board, stepRow, stepCol)  == "black")
-            || (!isWhitePiece && getPieceColour(board, stepRow, stepCol)  == "white"))) {
+    if (stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && ((isWhitePiece && getPieceColour(stepRow, stepCol)  == "black")
+            || (!isWhitePiece && getPieceColour(stepRow, stepCol)  == "white"))) {
         QList<int> move = {stepRow, stepCol};
         possibleMoves.append(move);
     }
@@ -40,19 +50,20 @@ QList<QList<int>> Move::getAllMovesInDirection(bool isWhitePiece, int row, int c
     return possibleMoves;
 }
 
-QList<QList<int>> Move::getOneMoveInDirection(bool isWhitePiece, int row, int col, int directionRow, int directionCol, QList<QList<Square *>> board) {
+QList<QList<int>> Move::getOneMoveInDirection(int row, int col, int directionRow, int directionCol) {
+    bool isWhitePiece = this->piece->pieceColour() == "white";
     QList<QList<int>> possibleMoves;
     int stepRow = row + directionRow;
     int stepCol = col + directionCol;
 
     //Piece is white and square in direction is empty or black piece
-    if(isWhitePiece && stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && getPieceColour(board, stepRow, stepCol) != "white") {
+    if(isWhitePiece && stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && getPieceColour(stepRow, stepCol) != "white") {
         QList<int> move = {stepRow, stepCol};
         possibleMoves.append(move);
     }
 
     //Piece is black and square in direction is empty or white piece
-    if(!isWhitePiece && stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && getPieceColour(board, stepRow, stepCol) != "black") {
+    if(!isWhitePiece && stepRow >= 0 && stepRow < 8 && stepCol >= 0 && stepCol < 8 && getPieceColour(stepRow, stepCol) != "black") {
         QList<int> move = {stepRow, stepCol};
         possibleMoves.append(move);
     }

@@ -1,44 +1,43 @@
 #include "kingmove.h"
 
-KingMove::KingMove() {}
+KingMove::KingMove(Piece * piece, QList<QList<Square *>> squares) : Move(piece, squares) {}
 
-QList<QList<int>> KingMove::getPossibleMoves(Piece * piece, QList<QList<Square *>> board) {
+QList<QList<int>> KingMove::getPossibleMoves() {
         QList<QList<int>> possibleMoves;
-        const bool isWhitePiece = piece->pieceColour() == "white";
         const int row = piece->getRow();
         const int col = piece->getCol();
 
         //Get all moves on upper left side
-        QList<QList<int>> upperLeftMoves = this->getOneMoveInDirection(isWhitePiece, row, col, -1, -1, board);
-        for(int i = 0; i != upperLeftMoves.count() ; i ++) possibleMoves.append(upperLeftMoves[i]);
+        QList<QList<int>> upperLeftMoves = this->getOneMoveInDirection(row, col, -1, -1);
+        if(upperLeftMoves.count() > 0) possibleMoves.append(upperLeftMoves[0]);
 
         //Get all moves on upper right side
-        QList<QList<int>> upperRightMoves = this->getOneMoveInDirection(isWhitePiece, row, col, -1, 1, board);
-        for(int i = 0; i != upperRightMoves.count() ; i ++) possibleMoves.append(upperRightMoves[i]);
+        QList<QList<int>> upperRightMoves = this->getOneMoveInDirection(row, col, -1, 1);
+        if(upperRightMoves.count() > 0) possibleMoves.append(upperRightMoves[0]);
 
         //Get all moves on lower left side
-        QList<QList<int>> lowerLeftMoves = this->getOneMoveInDirection(isWhitePiece, row, col, 1, -1, board);
-        for(int i = 0; i != lowerLeftMoves.count() ; i ++) possibleMoves.append(lowerLeftMoves[i]);
+        QList<QList<int>> lowerLeftMoves = this->getOneMoveInDirection(row, col, 1, -1);
+        if(lowerLeftMoves.count() > 0) possibleMoves.append(lowerLeftMoves[0]);
 
         //Get all moves on lower right side
-        QList<QList<int>> lowerRightMoves = this->getOneMoveInDirection(isWhitePiece, row, col, 1, 1, board);
-        for(int i = 0; i != lowerRightMoves.count() ; i ++) possibleMoves.append(lowerRightMoves[i]);
+        QList<QList<int>> lowerRightMoves = this->getOneMoveInDirection(row, col, 1, 1);
+        if(lowerRightMoves.count() > 0) possibleMoves.append(lowerRightMoves[0]);
 
         //Get all moves on upper side
-        QList<QList<int>> upperMoves = this->getOneMoveInDirection(isWhitePiece, row, col, -1, 0, board);
-        for(int i = 0; i != upperMoves.count() ; i ++) possibleMoves.append(upperMoves[i]);
+        QList<QList<int>> upperMoves = this->getOneMoveInDirection(row, col, -1, 0);
+        if(upperMoves.count() > 0) possibleMoves.append(upperMoves[0]);
 
         //Get all moves on lower side
-        QList<QList<int>> lowerMoves = this->getOneMoveInDirection(isWhitePiece, row, col, 1, 0, board);
-        for(int i = 0; i != lowerMoves.count() ; i ++) possibleMoves.append(lowerMoves[i]);
+        QList<QList<int>> lowerMoves = this->getOneMoveInDirection(row, col, 1, 0);
+        if(lowerMoves.count() > 0) possibleMoves.append(lowerMoves[0]);
 
         //Get all moves on left side
-        QList<QList<int>> leftMoves = this->getOneMoveInDirection(isWhitePiece, row, col, 0, -1, board);
-        for(int i = 0; i != leftMoves.count() ; i ++) possibleMoves.append(leftMoves[i]);
+        QList<QList<int>> leftMoves = this->getOneMoveInDirection(row, col, 0, -1);
+        if(leftMoves.count() > 0) possibleMoves.append(leftMoves[0]);
 
         //Get all moves on right side
-        QList<QList<int>> rightMoves = this->getOneMoveInDirection(isWhitePiece, row, col, 0, 1, board);
-        for(int i = 0; i != rightMoves.count() ; i ++) possibleMoves.append(rightMoves[i]);
+        QList<QList<int>> rightMoves = this->getOneMoveInDirection(row, col, 0, 1);
+        if(rightMoves.count() > 0) possibleMoves.append(rightMoves[0]);
 
         return possibleMoves;
 }

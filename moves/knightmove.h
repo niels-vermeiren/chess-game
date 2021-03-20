@@ -6,8 +6,8 @@
 class KnightMove : public Move
 {
 public:
-    KnightMove();
-    QList<QList<int>> getPossibleMoves(Piece * piece, QList<QList<Square *>> board);
+    KnightMove(Piece * piece, QList<QList<Square *>> board);
+    QList<QList<int>> getPossibleMoves();
 };
 
 #endif // KNIGHTMOVE_H

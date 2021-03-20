@@ -1,108 +1,43 @@
 #include "knightmove.h"
 
-KnightMove::KnightMove() {}
+KnightMove::KnightMove(Piece * piece, QList<QList<Square *>> squares) : Move(piece, squares) {}
 
-QList<QList<int>> KnightMove::getPossibleMoves(Piece * piece, QList<QList<Square *>> board) {
+QList<QList<int>> KnightMove::getPossibleMoves() {
     QList<QList<int>> possibleMoves;
-    const bool isWhitePiece = piece->pieceColour() == "white";
-    const int row = piece->getRow();
-    const int col = piece->getCol();
+    const int row = this->piece->getRow();
+    const int col = this->piece->getCol();
 
-    //Knight is white, and two squares up and one square left is free or black
-    if(isWhitePiece && row - 2 >= 0 && col - 1 >= 0 && getPieceColour(board, row - 2, col - 1) != "white") {
-        QList<int> move = {row - 2, col -  1};
-        possibleMoves.append(move);
-    }
+    //Two squares up and one square left is free opposite colour
+    QList<QList<int>> upperLeftMoves = this->getOneMoveInDirection(row, col, -2, -1);
+    if (upperLeftMoves.count() > 0) possibleMoves.append(upperLeftMoves[0]);
 
-    //Knight is white, and two squares up and one square right is free or black
-    if(isWhitePiece && row - 2 >= 0 && col + 1 < 8 && getPieceColour(board, row - 2, col + 1) != "white") {
-        QList<int> move = {row - 2, col + 1};
-        possibleMoves.append(move);
-    }
+    //Two squares up and one square right is free opposite colour
+    QList<QList<int>> upperRightMoves = this->getOneMoveInDirection(row, col, -2, 1);
+    if (upperRightMoves.count() > 0) possibleMoves.append(upperRightMoves[0]);
 
-    //Knight is white, and one square up and two squares right is free or black
-    if(isWhitePiece && row - 1 >= 0 && col + 2 < 8 && getPieceColour(board, row - 1, col + 2) != "white") {
-        QList<int> move = {row - 1, col + 2};
-        possibleMoves.append(move);
-    }
+    //One square up and two squares right is free opposite colour
+    QList<QList<int>> rightUpMoves = this->getOneMoveInDirection(row, col, -2, 1);
+    if (rightUpMoves.count() > 0) possibleMoves.append(rightUpMoves[0]);
 
-    //Knight is white, and one square down and two squares right is free or black
-    if(isWhitePiece && row + 1 < 8 && col + 2 < 8 && getPieceColour(board, row + 1, col + 2) != "white") {
-        QList<int> move = {row + 1, col + 2};
-        possibleMoves.append(move);
-    }
+    //One square down and two squares right is free opposite colour
+    QList<QList<int>> rightDownMoves = this->getOneMoveInDirection(row, col, 1, 2);
+    if (rightDownMoves.count() > 0) possibleMoves.append(rightDownMoves[0]);
 
-    //Knight is white, and two squares down and one square left is free or black
-    if(isWhitePiece && row + 2 < 8 && col - 1 >= 0 && getPieceColour(board, row + 2, col - 1) != "white") {
-        QList<int> move = {row + 2, col -  1};
-        possibleMoves.append(move);
-    }
+    //Two squares down and one square left is free opposite colour
+    QList<QList<int>> bottomLeftMoves = this->getOneMoveInDirection(row, col, 2, -1);
+    if (bottomLeftMoves.count() > 0) possibleMoves.append(bottomLeftMoves[0]);
 
-    //Knight is white, and two squares down and one square right is free or black
-    if(isWhitePiece && row + 2 < 8 && col + 1 < 8 && getPieceColour(board, row + 2, col + 1) != "white") {
-        QList<int> move = {row + 2, col + 1};
-        possibleMoves.append(move);
-    }
+    //Two squares down and one square right is free opposite colour
+    QList<QList<int>> bottomRightMoves = this->getOneMoveInDirection(row, col, 2, 1);
+    if (bottomRightMoves.count() > 0) possibleMoves.append(bottomRightMoves[0]);
 
-    //Knight is white, and one square up and two squares left is free or black
-    if(isWhitePiece && row - 1 >= 0 && col - 2 >= 0 && getPieceColour(board, row - 1, col - 2) != "white") {
-        QList<int> move = {row - 1, col - 2};
-        possibleMoves.append(move);
-    }
+    //One square up and two squares left is free opposite colour
+    QList<QList<int>> leftUpMoves = this->getOneMoveInDirection(row, col, -1, -2);
+    if (leftUpMoves.count() > 0) possibleMoves.append(leftUpMoves[0]);
 
-    //Knight is white, and one square down and two squares left is free or black
-    if(isWhitePiece && row + 1 < 8 && col - 2 >= 0 && getPieceColour(board, row + 1, col - 2) != "white") {
-        QList<int> move = {row + 1, col - 2};
-        possibleMoves.append(move);
-    }
-
-    //Knight is black, and two squares up and one square left is free or white
-    if(!isWhitePiece && row - 2 >= 0 && col - 1 >= 0 && getPieceColour(board, row - 2, col - 1) != "black") {
-        QList<int> move = {row - 2, col -  1};
-        possibleMoves.append(move);
-    }
-
-    //Knight is black, and two squares up and one square right is free or white
-    if(!isWhitePiece && row - 2 >= 0 && col + 1 < 8 && getPieceColour(board, row - 2, col + 1) != "black") {
-        QList<int> move = {row - 2, col + 1};
-        possibleMoves.append(move);
-    }
-
-    //Knight is black, and one square up and two squares right is free or white
-    if(!isWhitePiece && row - 1 >= 0 && col + 2 < 8 && getPieceColour(board, row - 1, col + 2) != "black") {
-        QList<int> move = {row - 1, col + 2};
-        possibleMoves.append(move);
-    }
-
-    //Knight is black, and one square down and two squares right is free or white
-    if(!isWhitePiece && row + 1 < 8 && col + 2 < 8 && getPieceColour(board, row + 1, col + 2) != "black") {
-        QList<int> move = {row + 1, col + 2};
-        possibleMoves.append(move);
-    }
-
-    //Knight is black, and two squares down and one square left is free or white
-    if(!isWhitePiece && row + 2 < 8 && col - 1 >= 0 && getPieceColour(board, row + 2, col - 1) != "black") {
-        QList<int> move = {row + 2, col -  1};
-        possibleMoves.append(move);
-    }
-
-    //Knight is black, and two squares down and one square right is free or white
-    if(!isWhitePiece && row + 2 < 8 && col + 1 < 8 && getPieceColour(board, row + 2, col + 1) != "black") {
-        QList<int> move = {row + 2, col + 1};
-        possibleMoves.append(move);
-    }
-
-    //Knight is black, and one square up and two squares left is free or white
-    if(!isWhitePiece && row - 1 >= 0 && col - 2 >= 0 && getPieceColour(board, row - 1, col - 2) != "black") {
-        QList<int> move = {row - 1, col - 2};
-        possibleMoves.append(move);
-    }
-
-    //Knight is black, and one square down and two squares left is free or white
-    if(!isWhitePiece && row + 1 < 8 && col - 2 >= 0 && getPieceColour(board, row + 1, col - 2) != "black") {
-        QList<int> move = {row + 1, col - 2};
-        possibleMoves.append(move);
-    }
+    //One square down and two squares left is free opposite colour
+    QList<QList<int>> leftDownMoves = this->getOneMoveInDirection(row, col, 1, -2);
+    if (leftDownMoves.count() > 0) possibleMoves.append(leftDownMoves[0]);
 
     return possibleMoves;
 }

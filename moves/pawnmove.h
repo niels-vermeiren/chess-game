@@ -5,8 +5,8 @@
 class PawnMove : public Move
 {
 public:
-    PawnMove();
-    QList<QList<int>> getPossibleMoves(Piece * piece, QList<QList<Square *>> board);
+    PawnMove(Piece * piece, QList<QList<Square *>> board);
+    QList<QList<int>> getPossibleMoves();
 };
 
 #endif // PAWNMOVE_H

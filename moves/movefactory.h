@@ -11,7 +11,7 @@
 class MoveFactory
 {
 public:
-    static Move * createMoveStrategy(Piece * piece);
+    static Move * createMoveStrategy(Piece * piece, QList<QList<Square *>> squares);
 };
 
 #endif // MOVEFACTORY_H

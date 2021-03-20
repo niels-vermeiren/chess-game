@@ -8,14 +8,18 @@ class Move : public QObject
 {
     Q_OBJECT
 public:
-    Move();
-    Q_INVOKABLE virtual QList<QList<int>> getPossibleMoves(Piece * piece, QList<QList<Square *>> board);
+    Move(Piece * piece, QList<QList<Square *>> squares);
+    Q_INVOKABLE virtual QList<QList<int>> getPossibleMoves();
+    ~Move();
 
 protected:
-    QList<QList<int>> getAllMovesInDirection(bool isWhitePiece, int row, int col, int directionRow, int directionCol, QList<QList<Square *>> board);
-    QList<QList<int>> getOneMoveInDirection(bool isWhitePiece, int row, int col, int directionRow, int directionCol, QList<QList<Square *>> board);
-    QString getPieceType(QList<QList<Square *>> board, int row, int col);
-    QString getPieceColour(QList<QList<Square *>> board, int row, int col);
+	Piece * piece;
+	QList<QList<Square *>> squares;
+
+    QList<QList<int>> getAllMovesInDirection(int row, int col, int directionRow, int directionCol);
+    QList<QList<int>> getOneMoveInDirection(int row, int col, int directionRow, int directionCol);
+    QString getPieceType(int row, int col);
+    QString getPieceColour(int row, int col);
 };
 
 #endif // MOVE_H
