@@ -13,6 +13,7 @@ class BoardViewModel : public QObject
     Q_OBJECT
     Q_PROPERTY(QList<QList<Square *>> squares READ squares WRITE setSquares NOTIFY squaresChanged)
     Q_PROPERTY(bool checkForBlack READ isCheckForBlack NOTIFY checkForBlackChanged)
+    Q_PROPERTY(bool checkMateForBlack READ isCheckMateForBlack NOTIFY checkForBlackChanged)
 
     public:
         BoardViewModel();
@@ -20,6 +21,7 @@ class BoardViewModel : public QObject
         Q_INVOKABLE QList<QList<int>> clickedOnPiece(int row, int col);
         Q_INVOKABLE void newGame();
         Q_INVOKABLE bool isCheckForBlack();
+        Q_INVOKABLE bool isCheckMateForBlack();
 
     private:
         QList<QList<Square *>> m_squares;
@@ -28,6 +30,7 @@ class BoardViewModel : public QObject
     signals:
         void squaresChanged();
         void checkForBlackChanged();
+        void checkMateForBlackChanged();
 };
 
 #endif // BOARDVIEWMODEL_H

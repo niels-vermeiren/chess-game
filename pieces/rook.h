@@ -9,6 +9,7 @@ class Rook : public Piece
     public:
         Rook(PieceColour colour, int row, int col);
         virtual ~Rook();
+        Piece * clone();
         QString pieceType() const;
 
     public slots:

@@ -8,6 +8,7 @@ class Pawn: public Piece
     public:
         Pawn(PieceColour colour, int row, int col);
         virtual ~Pawn();
+        Piece * clone();
         QString pieceType() const;
 
     public slots:

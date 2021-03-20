@@ -9,6 +9,7 @@ class Queen : public Piece
     public:
         Queen(PieceColour colour, int row, int col);
         virtual ~Queen();
+        Piece * clone();
         QString pieceType() const;
 
     public slots:

@@ -6,6 +6,13 @@ Piece::Piece(Piece::PieceColour colour, int row, int col) {
     this->col = col;
 }
 
+Piece * Piece::clone() {
+    PieceColour colour = PieceColour::NONE;
+    if(this->pieceColour() == "white") colour = PieceColour::WHITE;
+    if(this->pieceColour() == "black") colour = PieceColour::BLACK;
+    return new Piece(colour, this->getRow(), this->getCol());
+}
+
 QString Piece::pieceType() const {
     return "";
 };
@@ -18,6 +25,8 @@ QString Piece::pieceColour() {
         default: return QString("");
     }
 }
+
+
 
 bool Piece::operator!=(Piece &pc) {
     return this->pieceColour() != pc.pieceColour() || this->pieceType() != pc.pieceType();

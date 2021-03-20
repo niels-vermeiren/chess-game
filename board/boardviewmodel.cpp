@@ -30,3 +30,9 @@ bool BoardViewModel::isCheckForBlack() {
     emit checkForBlackChanged();
     return res;
 }
+
+bool BoardViewModel::isCheckMateForBlack() {
+    bool res = GameRules::isCheckMateForBlack(this->squares());
+    emit checkMateForBlackChanged();
+    return res;
+}

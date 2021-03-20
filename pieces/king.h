@@ -9,6 +9,7 @@ class King : public Piece
     public:
         King(PieceColour colour, int row, int col);
         virtual ~King();
+        Piece * clone();
         QString pieceType() const;
 
     public slots:

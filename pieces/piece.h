@@ -11,18 +11,18 @@ class Piece : public QObject
         enum PieceColour {NONE, WHITE, BLACK};
 
         Piece(PieceColour colour, int row, int col);
+
         QString pieceColour();
         int getRow() const;
         int getCol() const;
         virtual QString pieceType() const;
+        virtual Piece * clone();
         virtual ~Piece();
 
         bool operator!=(Piece &pc);
 
-    private:
-        PieceColour colour;
-
     protected:
+        PieceColour colour;
         int row;
         int col;
 

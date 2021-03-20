@@ -26,6 +26,13 @@ Window {
                 property string activePieceColour: ""
                 property bool whiteTurn: true
                 property bool isCheck: false
+                property bool isCheckMate: false
+                function resetGame() {
+                    boardRepeater.whiteTurn = true;
+                    boardRepeater.isCheck = false;
+                    boardRepeater.isCheckMate = false;
+                    BoardModel.newGame();
+                }
 
                 model: 64
                 id: boardRepeater
@@ -34,6 +41,9 @@ Window {
                 }
                 function checkForCheck() {
                     isCheck = BoardModel.isCheckForBlack();
+                    if (isCheck) {
+                        isCheckMate = BoardModel.isCheckMateForBlack();
+                    }
                 }
 
                 Square {}

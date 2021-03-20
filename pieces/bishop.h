@@ -10,6 +10,7 @@ class Bishop : public Piece
     public:
         Bishop(PieceColour colour, int row, int col);
         virtual ~Bishop();
+        Piece * clone();
         QString pieceType() const;
 
     public slots:

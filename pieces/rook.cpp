@@ -2,6 +2,13 @@
 
 Rook::Rook(PieceColour colour, int row, int col) : Piece(colour, row, col) {}
 
+Piece * Rook::clone() {
+    PieceColour colour = PieceColour::NONE;
+    if(this->pieceColour() == "white") colour = PieceColour::WHITE;
+    if(this->pieceColour() == "black") colour = PieceColour::BLACK;
+    return new Rook(colour, this->getRow(), this->getCol());
+}
+
 Rook::~Rook() {}
 
 QString Rook::pieceType() const {

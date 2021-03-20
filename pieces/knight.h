@@ -10,6 +10,7 @@ class Knight : public Piece
     public:
         Knight(PieceColour colour, int row, int col);
         virtual ~Knight();
+        Piece * clone();
         QString pieceType() const;
 
     public slots:
