@@ -7,7 +7,7 @@ Rectangle {
     color: squareColour
     property int row: Math.floor(index/8);
     property int col: index % 8;
-    property bool gameHasEnded: false;
+
     property string squareColour: BoardModel ? BoardModel.squares[row][col].squareColour : ""
     property string pieceColour: BoardModel ?  BoardModel.squares[row][col].piece.pieceColour : ""
 
@@ -17,8 +17,9 @@ Rectangle {
             BoardModel.squares[boardRepeater.activePieceRow][boardRepeater.activePieceCol].changePiece("", "");
             BoardModel.squares[row][col].changePiece(boardRepeater.activePiece, boardRepeater.activePieceColour);
             boardRepeater.checkForCheck();
-            if(boardRepeater.isCheckMate) {
-                gameHasEnded = true;
+            if(boardRepeater.isCheckMateBlack || boardRepeater.isCheckMateWhite) {
+                boardRepeater.gameHasEnded = true;
+                boardRepeater.clearPosMoves();
             }
         }
         boardRepeater.clearPosMoves();
@@ -26,7 +27,7 @@ Rectangle {
 
     function getPossibleMoves() {
         if(BoardModel) {
-            if(square.gameHasEnded || (boardRepeater.whiteTurn && BoardModel.squares[row][col].piece.pieceColour !== "white")
+            if(boardRepeater.gameHasEnded || (boardRepeater.whiteTurn && BoardModel.squares[row][col].piece.pieceColour !== "white")
                     || (!boardRepeater.whiteTurn && BoardModel.squares[row][col].piece.pieceColour !== "black")) return;
 
             var posMoves =  BoardModel.clickedOnPiece(row, col);

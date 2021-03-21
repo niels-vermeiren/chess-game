@@ -25,12 +25,20 @@ Window {
                 property string activePiece: ""
                 property string activePieceColour: ""
                 property bool whiteTurn: true
-                property bool isCheck: false
-                property bool isCheckMate: false
+                property bool isCheckBlack: false
+                property bool isCheckMateBlack: false
+                property bool isCheckWhite: false
+                property bool isCheckMateWhite: false
+                property bool gameHasEnded: false
+
                 function resetGame() {
-                    boardRepeater.whiteTurn = true;
-                    boardRepeater.isCheck = false;
-                    boardRepeater.isCheckMate = false;
+                    whiteTurn = true;
+                    isCheckBlack = false;
+                    isCheckMateBlack = false;
+                    isCheckWhite = false;
+                    isCheckMateWhite = false;
+                    gameHasEnded = false;
+                    clearPosMoves();
                     BoardModel.newGame();
                 }
 
@@ -40,9 +48,12 @@ Window {
                     for (var i=0; i!== boardRepeater.count ; i++) boardRepeater.itemAt(i).children[1].visible = false;
                 }
                 function checkForCheck() {
-                    isCheck = BoardModel.isCheckForBlack();
-                    if (isCheck) {
-                        isCheckMate = BoardModel.isCheckMateForBlack();
+                    if(!whiteTurn) {
+                        isCheckBlack = BoardModel.isCheckForColour("black");
+                        if (isCheckBlack) isCheckMateBlack = BoardModel.isCheckMateForColour("black");
+                    } else {
+                        isCheckWhite = BoardModel.isCheckForColour("white");
+                        if (isCheckWhite) isCheckMateWhite = BoardModel.isCheckMateForColour("white");
                     }
                 }
 

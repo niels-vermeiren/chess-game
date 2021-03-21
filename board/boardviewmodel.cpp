@@ -25,14 +25,16 @@ void BoardViewModel::setSquares(QList<QList<Square *>> squares) {
     emit squaresChanged();
 }
 
-bool BoardViewModel::isCheckForBlack() {
-    bool res = GameRules::isCheckForBlack(this->squares());
-    emit checkForBlackChanged();
+bool BoardViewModel::isCheckForColour(QString colour) {
+    bool res = GameRules::isCheckForColour(this->squares(), colour);
+    if (colour == "black") emit checkForBlackChanged();
+    else emit checkForWhiteChanged();
     return res;
 }
 
-bool BoardViewModel::isCheckMateForBlack() {
-    bool res = GameRules::isCheckMateForBlack(this->squares());
-    emit checkMateForBlackChanged();
+bool BoardViewModel::isCheckMateForColour(QString colour) {
+    bool res = GameRules::isCheckMateForColour(this->squares(), colour);
+    if (colour == "black") emit checkMateForBlackChanged();
+    else emit checkMateForWhiteChanged();
     return res;
 }

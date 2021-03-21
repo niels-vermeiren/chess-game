@@ -2,13 +2,13 @@
 
 GameRules::GameRules() {}
 
-bool GameRules::isCheckForBlack(QList<QList<Square *>> board) {
+bool GameRules::isCheckForColour(QList<QList<Square *>> board, QString colour) {
     //Get position of black king
     Piece * king;
     bool kingFound = false;
     for(int i = 0; i < board.count(); i++) {
         for(int j = 0; j < board[0].count(); j++) {
-            if(board[i][j]->getPieceOnSquare()->pieceType() == "♚" && board[i][j]->getPieceOnSquare()->pieceColour() == "black") {
+            if(board[i][j]->getPieceOnSquare()->pieceType() == "♚" && board[i][j]->getPieceOnSquare()->pieceColour() == colour) {
                 king = board[i][j]->getPieceOnSquare();
                 kingFound = true;
                 break;
@@ -20,7 +20,7 @@ bool GameRules::isCheckForBlack(QList<QList<Square *>> board) {
     //Check if white can make a move that captures black king
     for(int i = 0; i < board.count() && kingFound; i++) {
         for(int j = 0; j < board[0].count(); j++) {
-            if(board[i][j]->getPieceOnSquare()->pieceColour()=="black") continue;
+            if(board[i][j]->getPieceOnSquare()->pieceColour( )== colour) continue;
             Move * move = MoveFactory::createMoveStrategy(board[i][j]->getPieceOnSquare(), board);
             QList<QList<int>> possibleMoves = move->getPossibleMoves();
 
@@ -40,14 +40,14 @@ bool GameRules::isCheckForBlack(QList<QList<Square *>> board) {
     return false;
 }
 
-bool GameRules::isCheckMateForBlack(QList<QList<Square *>> board) {
+bool GameRules::isCheckMateForColour(QList<QList<Square *>> board, QString colour) {
     //Check if black can make any legal move that doesn't result in a check
     //Get all possible moves for black
 
 
     for(int i = 0; i < board.count(); i++) {
         for(int j = 0; j < board[0].count(); j++) {
-            if(board[i][j]->getPieceOnSquare()->pieceColour()=="white") continue;
+            if(board[i][j]->getPieceOnSquare()->pieceColour() != colour) continue;
             Move * move = MoveFactory::createMoveStrategy(board[i][j]->getPieceOnSquare(), board);
             QList<QList<int>> possibleMoves = move->getPossibleMoves();
 
@@ -65,7 +65,7 @@ bool GameRules::isCheckMateForBlack(QList<QList<Square *>> board) {
 
                     bool isNotCheckMate = false;
 
-                    if(!isCheckForBlack(board)) {
+                    if(!isCheckForColour(board, colour)) {
                         isNotCheckMate = true;
                     }
 

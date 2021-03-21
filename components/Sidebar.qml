@@ -42,10 +42,18 @@ Item {
         }
         Text {
             id: isCheckBlack
-            text: boardRepeater.isCheck ? boardRepeater.isCheckMate ? "CheckMate!" : "Check" : ""
+            text: boardRepeater.isCheckBlack ? boardRepeater.isCheckMateBlack ? "CheckMate!" : "Check" : ""
             color: "white"
             anchors.horizontalCenter: parent.horizontalCenter
             y: 200
+            font.bold: true
+        }
+        Text {
+            id: isCheckWhite
+            text: boardRepeater.isCheckWhite ? boardRepeater.isCheckMateWhite ? "CheckMate!" : "Check" : ""
+            color: "white"
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 368
             font.bold: true
         }
      }

@@ -16,7 +16,7 @@ QList<QList<int>> KnightMove::getPossibleMoves() {
     if (upperRightMoves.count() > 0) possibleMoves.append(upperRightMoves[0]);
 
     //One square up and two squares right is free opposite colour
-    QList<QList<int>> rightUpMoves = this->getOneMoveInDirection(row, col, -2, 1);
+    QList<QList<int>> rightUpMoves = this->getOneMoveInDirection(row, col, -1, 2);
     if (rightUpMoves.count() > 0) possibleMoves.append(rightUpMoves[0]);
 
     //One square down and two squares right is free opposite colour

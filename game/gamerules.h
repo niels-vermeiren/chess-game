@@ -11,8 +11,8 @@ class GameRules : public QObject
     Q_OBJECT
 public:
     GameRules();
-    static bool isCheckForBlack(QList<QList<Square *>> board);
-    static bool isCheckMateForBlack(QList<QList<Square *>> board);
+    static bool isCheckForColour(QList<QList<Square *>> board, QString colour);
+    static bool isCheckMateForColour(QList<QList<Square *>> board, QString colour);
 
 signals:
 
