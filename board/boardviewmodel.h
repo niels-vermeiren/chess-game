@@ -6,7 +6,7 @@
 #include "board/boardfactory.h"
 #include "moves/pawnmove.h"
 #include "moves/movefactory.h"
-#include "game/gamerules.h"
+#include "game/game.h"
 
 class BoardViewModel : public QObject
 {
@@ -16,6 +16,7 @@ class BoardViewModel : public QObject
     Q_PROPERTY(bool checkMateForBlack NOTIFY checkForBlackChanged)
     Q_PROPERTY(bool checkForWhite NOTIFY checkForWhiteChanged)
     Q_PROPERTY(bool checkMateForWhite NOTIFY checkForWhiteChanged)
+    Q_PROPERTY(bool staleMate NOTIFY staleMateChanged)
 
     public:
         BoardViewModel();
@@ -24,6 +25,7 @@ class BoardViewModel : public QObject
         Q_INVOKABLE void newGame();
         Q_INVOKABLE bool isCheckForColour(QString colour);
         Q_INVOKABLE bool isCheckMateForColour(QString colour);
+        Q_INVOKABLE bool isStaleMate();
 
     private:
         QList<QList<Square *>> m_squares;
@@ -35,6 +37,7 @@ class BoardViewModel : public QObject
         void checkMateForBlackChanged();
         void checkForWhiteChanged();
         void checkMateForWhiteChanged();
+        void staleMateChanged();
 };
 
 #endif // BOARDVIEWMODEL_H

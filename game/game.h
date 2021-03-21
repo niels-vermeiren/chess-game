@@ -1,21 +1,22 @@
-#ifndef GAMERULES_H
-#define GAMERULES_H
+#ifndef GAME_H
+#define GAME_H
 
 #include <QObject>
 #include <QList>
 #include "board/square.h"
 #include "moves/movefactory.h"
 
-class GameRules : public QObject
+class Game
 {
-    Q_OBJECT
+
 public:
-    GameRules();
+    Game();
+    static QList<QList<int>> getPossibleMoves(QList<QList<Square *>> board, int row, int col);
     static bool isCheckForColour(QList<QList<Square *>> board, QString colour);
     static bool isCheckMateForColour(QList<QList<Square *>> board, QString colour);
-
+    static bool isStaleMateForColour(QList<QList<Square *>> board, QString colour);
 signals:
 
 };
 
-#endif // GAMERULES_H
+#endif // GAME_H

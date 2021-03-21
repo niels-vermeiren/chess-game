@@ -30,6 +30,7 @@ Window {
                 property bool isCheckWhite: false
                 property bool isCheckMateWhite: false
                 property bool gameHasEnded: false
+                property bool isStaleMate: false
 
                 function resetGame() {
                     whiteTurn = true;
@@ -38,6 +39,7 @@ Window {
                     isCheckWhite = false;
                     isCheckMateWhite = false;
                     gameHasEnded = false;
+                    isStaleMate = false;
                     clearPosMoves();
                     BoardModel.newGame();
                 }
@@ -53,6 +55,8 @@ Window {
 
                     isCheckWhite = BoardModel.isCheckForColour("white");
                     if (isCheckWhite) isCheckMateWhite = BoardModel.isCheckMateForColour("white");
+
+                    if(!isCheckBlack && !isCheckWhite) isStaleMate = BoardModel.isStaleMate();
                 }
 
                 Square {}

@@ -42,7 +42,7 @@ Item {
         }
         Text {
             id: isCheckBlack
-            text: boardRepeater.isCheckBlack ? boardRepeater.isCheckMateBlack ? "CheckMate!" : "Check" : ""
+            text: boardRepeater.isCheckBlack ? boardRepeater.isCheckMateBlack ? "CheckMate!" : "Check" : boardRepeater.isStaleMate ? "StaleMate!" : ""
             color: "white"
             anchors.horizontalCenter: parent.horizontalCenter
             y: 200
@@ -50,7 +50,7 @@ Item {
         }
         Text {
             id: isCheckWhite
-            text: boardRepeater.isCheckWhite ? boardRepeater.isCheckMateWhite ? "CheckMate!" : "Check" : ""
+            text: boardRepeater.isCheckWhite ? boardRepeater.isCheckMateWhite ? "CheckMate!" : "Check" : boardRepeater.isStaleMate ? "StaleMate!" : ""
             color: "white"
             anchors.horizontalCenter: parent.horizontalCenter
             y: 368
