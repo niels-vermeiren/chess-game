@@ -48,13 +48,11 @@ Window {
                     for (var i=0; i!== boardRepeater.count ; i++) boardRepeater.itemAt(i).children[1].visible = false;
                 }
                 function checkForCheck() {
-                    if(!whiteTurn) {
-                        isCheckBlack = BoardModel.isCheckForColour("black");
-                        if (isCheckBlack) isCheckMateBlack = BoardModel.isCheckMateForColour("black");
-                    } else {
-                        isCheckWhite = BoardModel.isCheckForColour("white");
-                        if (isCheckWhite) isCheckMateWhite = BoardModel.isCheckMateForColour("white");
-                    }
+                    isCheckBlack = BoardModel.isCheckForColour("black");
+                    if (isCheckBlack) isCheckMateBlack = BoardModel.isCheckMateForColour("black");
+
+                    isCheckWhite = BoardModel.isCheckForColour("white");
+                    if (isCheckWhite) isCheckMateWhite = BoardModel.isCheckMateForColour("white");
                 }
 
                 Square {}

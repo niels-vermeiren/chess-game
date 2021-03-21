@@ -20,7 +20,7 @@ bool GameRules::isCheckForColour(QList<QList<Square *>> board, QString colour) {
     //Check if white can make a move that captures black king
     for(int i = 0; i < board.count() && kingFound; i++) {
         for(int j = 0; j < board[0].count(); j++) {
-            if(board[i][j]->getPieceOnSquare()->pieceColour( )== colour) continue;
+            if(board[i][j]->getPieceOnSquare()->pieceColour( ) == colour) continue;
             Move * move = MoveFactory::createMoveStrategy(board[i][j]->getPieceOnSquare(), board);
             QList<QList<int>> possibleMoves = move->getPossibleMoves();
 
