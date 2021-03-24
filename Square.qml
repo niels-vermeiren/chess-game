@@ -14,8 +14,26 @@ Rectangle {
     function movePiece() {
         if (BoardModel && posMoveRect.visible) {
             boardRepeater.whiteTurn = !boardRepeater.whiteTurn;
-            BoardModel.squares[boardRepeater.activePieceRow][boardRepeater.activePieceCol].changePiece("", "");
-            BoardModel.squares[row][col].changePiece(boardRepeater.activePiece, boardRepeater.activePieceColour);
+
+            //Check for castle move
+            if(boardRepeater.activePiece === "♚") {
+                //Check which rook the king is castling to
+                //Left rook?
+                if(boardRepeater.activePieceCol - 2 == col) {
+                    //Move rook to the right side of king
+
+                    BoardModel.squares[boardRepeater.activePieceRow][0].changePiece("", "", false);
+                    BoardModel.squares[row][2].changePiece("♜", boardRepeater.activePieceColour, true);
+
+                } else if (boardRepeater.activePieceCol + 2 == col) {
+
+                    BoardModel.squares[boardRepeater.activePieceRow][7].changePiece("", "", false);
+                    BoardModel.squares[row][4].changePiece("♜", boardRepeater.activePieceColour, true);
+                }
+            }
+
+            BoardModel.squares[boardRepeater.activePieceRow][boardRepeater.activePieceCol].changePiece("", "", false);
+            BoardModel.squares[row][col].changePiece(boardRepeater.activePiece, boardRepeater.activePieceColour, true);
             boardRepeater.checkForCheck();
             if(boardRepeater.isCheckMateBlack || boardRepeater.isCheckMateWhite) {
                 boardRepeater.gameHasEnded = true;
@@ -40,9 +58,12 @@ Rectangle {
                 if (i === 0) boardRepeater.clearPosMoves();
                 boardRepeater.activePieceRow = row;
                 boardRepeater.activePieceCol = col;
-                boardRepeater.activePieceColour = BoardModel.squares[row][col].piece.pieceColour;
-                boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
-                boardRepeater.itemAt(index).children[1].visible = true;
+                if(BoardModel.squares[row][col].piece && BoardModel.squares[row][col].piece.pieceColour) {
+                    boardRepeater.activePieceColour = BoardModel.squares[row][col].piece.pieceColour;
+                    boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
+                    boardRepeater.itemAt(index).children[1].visible = true;
+                }
+
             }
         }
     }

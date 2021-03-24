@@ -8,7 +8,9 @@ Piece * Queen::clone() {
     PieceColour colour = PieceColour::NONE;
     if(this->pieceColour() == "white") colour = PieceColour::WHITE;
     if(this->pieceColour() == "black") colour = PieceColour::BLACK;
-    return new Queen(colour, this->getRow(), this->getCol());
+    Queen * queen = new Queen(colour, this->getRow(), this->getCol());
+    queen->setMoved(this->hasMoved());
+    return queen;
 }
 
 QString Queen::pieceType() const {

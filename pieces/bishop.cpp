@@ -7,7 +7,9 @@ Piece * Bishop::clone() {
     PieceColour colour = PieceColour::NONE;
     if(this->pieceColour() == "white") colour = PieceColour::WHITE;
     if(this->pieceColour() == "black") colour = PieceColour::BLACK;
-    return new Bishop(colour, this->getRow(), this->getCol());
+    Piece * bishop =  new Bishop(colour, this->getRow(), this->getCol());
+    bishop->setMoved(this->hasMoved());
+    return bishop;
 }
 
 QString Bishop::pieceType() const {

@@ -7,7 +7,9 @@ Piece * Knight::clone() {
     PieceColour colour = PieceColour::NONE;
     if(this->pieceColour() == "white") colour = PieceColour::WHITE;
     if(this->pieceColour() == "black") colour = PieceColour::BLACK;
-    return new Knight(colour, this->getRow(), this->getCol());
+    Piece * knight = new Knight(colour, this->getRow(), this->getCol());
+    knight->setMoved(this->hasMoved());
+    return knight;
 }
 
 QString Knight::pieceType() const {

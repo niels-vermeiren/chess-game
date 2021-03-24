@@ -50,6 +50,7 @@ Window {
                     for (var i=0; i!== boardRepeater.count ; i++) boardRepeater.itemAt(i).children[1].visible = false;
                 }
                 function checkForCheck() {
+
                     isCheckBlack = BoardModel.isCheckForColour("black");
                     if (isCheckBlack) isCheckMateBlack = BoardModel.isCheckMateForColour("black");
 

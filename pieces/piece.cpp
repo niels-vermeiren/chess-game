@@ -4,6 +4,7 @@ Piece::Piece(Piece::PieceColour colour, int row, int col) {
     this->colour = colour;
     this->row = row;
     this->col = col;
+    this->moved = false;
 }
 
 Piece * Piece::clone() {
@@ -38,6 +39,18 @@ int Piece::getRow() const {
 
 int Piece::getCol() const {
     return this->col;
+}
+
+bool Piece::hasMoved() const {
+    return this->moved;
+}
+
+void Piece::pieceMoved() {
+    this->moved = true;
+}
+
+void Piece::setMoved(bool hasMoved) {
+    this->moved = hasMoved;
 }
 
 Piece::~Piece(){

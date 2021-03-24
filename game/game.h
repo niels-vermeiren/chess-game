@@ -15,6 +15,12 @@ public:
     static bool isCheckForColour(QList<QList<Square *>> board, QString colour);
     static bool isCheckMateForColour(QList<QList<Square *>> board, QString colour);
     static bool isStaleMateForColour(QList<QList<Square *>> board, QString colour);
+    static Piece * castle(QList<QList<Square*>> board, Piece * piece, QList<int> possibleMove);
+    static void reverseCastle(QList<QList<Square*>> board, Piece * piece);
+    static bool isCastlingMove(Piece * piece, QList<int> possibleMove);
+private:
+    static bool isLeftCastlingMove(Piece * piece, QList<int> possibleMove);
+    static bool isRightCastlingMove(Piece * piece, QList<int> possibleMove);
 signals:
 
 };

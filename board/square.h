@@ -18,11 +18,13 @@ class Square : public QObject
     public:
         enum SquareColour { BLACK, WHITE };
         Square();
-        Square(SquareColour colour, Piece * piece);
+        Square(SquareColour colour, Piece * piece, int row, int col);
         virtual ~Square();
         QString squareColour() const;
         Piece * getPieceOnSquare() const;
-        Q_INVOKABLE void changePiece(QString pieceType, QString pieceColour);
+        Q_INVOKABLE void changePiece(QString pieceType, QString pieceColour, bool fromUser);
+        int getRow() const;
+        int getCol() const;
 
     public slots:
         void setPieceOnSquare(Piece *  piece);
@@ -34,6 +36,8 @@ class Square : public QObject
     private:
         SquareColour colour;
         Piece * m_piece;
+        int row;
+        int col;
 };
 
 #endif // SQUARE_H

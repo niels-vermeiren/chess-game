@@ -15,6 +15,9 @@ class Piece : public QObject
         QString pieceColour();
         int getRow() const;
         int getCol() const;
+        bool hasMoved() const;
+        void setMoved(bool hasMoved);
+        void pieceMoved();
         virtual QString pieceType() const;
         virtual Piece * clone();
         virtual ~Piece();
@@ -22,6 +25,7 @@ class Piece : public QObject
         bool operator!=(Piece &pc);
 
     protected:
+        bool moved;
         PieceColour colour;
         int row;
         int col;

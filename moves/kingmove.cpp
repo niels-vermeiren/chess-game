@@ -39,5 +39,26 @@ QList<QList<int>> KingMove::getPossibleMoves() {
         QList<QList<int>> rightMoves = this->getOneMoveInDirection(row, col, 0, 1);
         if(rightMoves.count() > 0) possibleMoves.append(rightMoves[0]);
 
+        //Castle move
+        //If rook hasn't moved yet, and king hasn't moved yet
+        //Left rook
+        if(!this->piece->hasMoved() && !this->squares[row][0]->getPieceOnSquare()->hasMoved()) {
+            //If there are no pieces between king and rook
+            if(squares[row][1]->getPieceOnSquare()->pieceType() == "" && squares[row][2]->getPieceOnSquare()->pieceType() == "") {
+                //Move king to square 1
+                possibleMoves.append({row, col - 2});
+            }
+        }
+
+        //Right rook
+        if(!this->piece->hasMoved() && !this->squares[row][7]->getPieceOnSquare()->hasMoved()) {
+            //If there are no pieces between king and rook
+            if(squares[row][6]->getPieceOnSquare()->pieceType() == "" && squares[row][5]->getPieceOnSquare()->pieceType() == "" && squares[row][4]->getPieceOnSquare()->pieceType() == "") {
+                //Move king to square 1
+                possibleMoves.append({row, col + 2});
+            }
+        }
+
         return possibleMoves;
 }
+

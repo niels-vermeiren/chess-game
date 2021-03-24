@@ -6,7 +6,9 @@ Piece * Rook::clone() {
     PieceColour colour = PieceColour::NONE;
     if(this->pieceColour() == "white") colour = PieceColour::WHITE;
     if(this->pieceColour() == "black") colour = PieceColour::BLACK;
-    return new Rook(colour, this->getRow(), this->getCol());
+    Piece * rook = new Rook(colour, this->getRow(), this->getCol());
+    rook->setMoved(this->hasMoved());
+    return rook;
 }
 
 Rook::~Rook() {}
