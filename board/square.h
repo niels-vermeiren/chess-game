@@ -22,7 +22,7 @@ class Square : public QObject
         virtual ~Square();
         QString squareColour() const;
         Piece * getPieceOnSquare() const;
-        Q_INVOKABLE void changePiece(QString pieceType, QString pieceColour, bool fromUser);
+        Q_INVOKABLE void changePiece(QString pieceType, QString pieceColour, bool hasBeenMoved);
         int getRow() const;
         int getCol() const;
 

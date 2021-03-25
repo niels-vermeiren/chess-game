@@ -12,6 +12,7 @@ Rectangle {
     property string pieceColour: BoardModel ?  BoardModel.squares[row][col].piece.pieceColour : ""
 
     function movePiece() {
+        var activePieceCol = col;
         if (BoardModel && posMoveRect.visible) {
             boardRepeater.whiteTurn = !boardRepeater.whiteTurn;
 
@@ -21,25 +22,26 @@ Rectangle {
                 //Left rook?
                 if(boardRepeater.activePieceCol - 2 == col) {
                     //Move rook to the right side of king
-
                     BoardModel.squares[boardRepeater.activePieceRow][0].changePiece("", "", false);
                     BoardModel.squares[row][2].changePiece("♜", boardRepeater.activePieceColour, true);
-
+                    activePieceCol = 2;
                 } else if (boardRepeater.activePieceCol + 2 == col) {
-
                     BoardModel.squares[boardRepeater.activePieceRow][7].changePiece("", "", false);
                     BoardModel.squares[row][4].changePiece("♜", boardRepeater.activePieceColour, true);
+                    activePieceCol = 4;
                 }
             }
-
             BoardModel.squares[boardRepeater.activePieceRow][boardRepeater.activePieceCol].changePiece("", "", false);
             BoardModel.squares[row][col].changePiece(boardRepeater.activePiece, boardRepeater.activePieceColour, true);
+            boardRepeater.activePieceCol = activePieceCol;
+            boardRepeater.activePieceRow = row;
             boardRepeater.checkForCheck();
             if(boardRepeater.isCheckMateBlack || boardRepeater.isCheckMateWhite) {
                 boardRepeater.gameHasEnded = true;
                 boardRepeater.clearPosMoves();
             }
         }
+        boardRepeater.pieceHasReachedEnd();
         boardRepeater.clearPosMoves();
     }
 
@@ -88,12 +90,15 @@ Rectangle {
         opacity: 0.4
         z: 100
         MouseArea {
+            z: 100
+             propagateComposedEvents: true
              anchors.fill: parent
              hoverEnabled: true
+
              onEntered: parent.opacity = 0.8
              onExited: parent.opacity = 0.4
              onClicked: square.movePiece()
-         }
+        }
    }
 
    MouseArea {

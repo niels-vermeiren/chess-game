@@ -7,46 +7,44 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
     Piece * piece = board[row][col]->getPieceOnSquare();
 
     Move * move = MoveFactory::createMoveStrategy(piece, board);
-    QList<QList<int>> posMoves = move->getPossibleMoves();
+    QList<QList<int>> possibleMoves = move->getPossibleMoves();
 
     //Check if move does not result in a check, if so remove possible move
     int i = 0;
-    while(i != posMoves.count()) {
+    while(i != possibleMoves.count()) {
         //Make move and check for check
-        if(posMoves[i].count() > 0) {
+        if(possibleMoves[i].count() > 0) {
             //Copy piece
             Piece * pieceClone = board[row][col]->getPieceOnSquare()->clone();
-            int posRow = posMoves[i][0];
-            int posCol = posMoves[i][1];
+            int posRow = possibleMoves[i][0];
+            int posCol = possibleMoves[i][1];
             bool isCheck = false;
 
             //If it is a castling move
-            if(Game::isCastlingMove(pieceClone, posMoves[i])) {
+            if(isCastlingMove(pieceClone, possibleMoves[i])) {
 
-                pieceClone = Game::castle(board, pieceClone, posMoves[i]);
-                isCheck = Game::isCheckForColour(board, pieceClone->pieceColour());
-                Game::reverseCastle(board, pieceClone);
+                pieceClone = castle(board, pieceClone, possibleMoves[i]);
+                isCheck = isCheckForColour(board, pieceClone->pieceColour());
+                reverseCastle(board, pieceClone);
+            //If it is not a castling move
             } else {
-                //Move
-                //If it is not a castling move
                 //Make move
                 board[row][col]->changePiece("","", false);
                 Piece * capturedPiece = board[posRow][posCol]->getPieceOnSquare()->clone();
                 board[posRow][posCol]->changePiece(pieceClone->pieceType(), pieceClone->pieceColour(), pieceClone->hasMoved());
 
-                isCheck = Game::isCheckForColour(board, pieceClone->pieceColour());
-
+                isCheck = isCheckForColour(board, pieceClone->pieceColour());
                 //Revert move
                 board[row][col]->changePiece(pieceClone->pieceType(), pieceClone->pieceColour(), pieceClone->hasMoved());
                 board[posRow][posCol]->changePiece(capturedPiece->pieceType(), capturedPiece->pieceColour(), capturedPiece->hasMoved());
             }
 
             if (!isCheck) i++;
-            else posMoves.remove(i);
+            else possibleMoves.remove(i);
         }
     }
 
-    return posMoves;
+    return possibleMoves;
 }
 
 bool Game::isCheckForColour(QList<QList<Square *>> board, QString colour) {
@@ -104,10 +102,10 @@ bool Game::isCheckMateForColour(QList<QList<Square *>> board, QString colour) {
                     int col = possibleMoves[k][1];
 
                     //If it is a castling move
-                    if(Game::isCastlingMove(piece, possibleMoves[k])) {
-                        piece = Game::castle(board, piece, possibleMoves[k]);
-                        isNotCheckMate = !Game::isCheckForColour(board, piece->pieceColour());
-                        Game::reverseCastle(board, piece);
+                    if(isCastlingMove(piece, possibleMoves[k])) {
+                        piece = castle(board, piece, possibleMoves[k]);
+                        isNotCheckMate = !isCheckForColour(board, piece->pieceColour());
+                        reverseCastle(board, piece);
                     } else {
                         //Move
                         board[i][j]->changePiece("","", false);
@@ -136,7 +134,7 @@ bool Game::isStaleMateForColour(QList<QList<Square *>> board, QString colour) {
         for(int j = 0; j != board[0].count(); j++) {
             QString pieceColour = board[i][j]->getPieceOnSquare()->pieceColour();
             if(pieceColour != colour) continue;
-            QList<QList<int>> posMovesForPiece = Game::getPossibleMoves(board, i, j);
+            QList<QList<int>> posMovesForPiece = getPossibleMoves(board, i, j);
             if(posMovesForPiece.count() > 0) return false;
 
         }
@@ -145,7 +143,7 @@ bool Game::isStaleMateForColour(QList<QList<Square *>> board, QString colour) {
 }
 
 bool Game::isCastlingMove(Piece * piece, QList<int> possibleMove) {
-    return piece->pieceType() == "♚" && (Game::isLeftCastlingMove(piece, possibleMove) || Game::isRightCastlingMove(piece, possibleMove));
+    return piece->pieceType() == "♚" && (isLeftCastlingMove(piece, possibleMove) || isRightCastlingMove(piece, possibleMove));
 }
 
 bool Game::isLeftCastlingMove(Piece * piece, QList<int> possibleMove) {
@@ -161,10 +159,8 @@ Piece * Game::castle(QList<QList<Square *>> board, Piece * piece, QList<int> pos
     //If is a castling move (col should differ 2 from possibleMoveCole
     //Check which rook the king is castling to
     //Left rook?
-    if(Game::isLeftCastlingMove(piece, possibleMove) && board[piece->getRow()][piece->getCol() - 1]->getPieceOnSquare()->pieceType() == "♜") {
+    if(isLeftCastlingMove(piece, possibleMove) && board[piece->getRow()][0]->getPieceOnSquare()->pieceType() == "♜") {
         //Move king two to the left
-        //Get rook clone
-
         board[piece->getRow()][piece->getCol()]->changePiece("", "", false);
         board[piece->getRow()][piece->getCol() - 2]->changePiece(piece->pieceType(), piece->pieceColour(), piece->hasMoved());
 
@@ -173,8 +169,7 @@ Piece * Game::castle(QList<QList<Square *>> board, Piece * piece, QList<int> pos
         board[piece->getRow()][0]->changePiece("", "", false);
         board[piece->getRow()][2]->changePiece("♜", piece->pieceColour(), piece->hasMoved());
 
-
-    } else if (Game::isRightCastlingMove(piece, possibleMove) && board[piece->getRow()][piece->getCol() - 1]->getPieceOnSquare()->pieceType() == "♜") {
+    } else if (isRightCastlingMove(piece, possibleMove) && board[piece->getRow()][7]->getPieceOnSquare()->pieceType() == "♜") {
         //Move king two to the left
         board[piece->getRow()][piece->getCol()]->changePiece("", "", false);
         board[piece->getRow()][piece->getCol() + 2]->changePiece(piece->pieceType(), piece->pieceColour(), piece->hasMoved());

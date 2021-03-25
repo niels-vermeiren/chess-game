@@ -12,7 +12,58 @@ Window {
         width: 8*73;
         height: 8*73-3;
         color: "black"
+        id: board
+        Rectangle {
+            anchors.verticalCenter: parent.verticalCenter
 
+            z: 99;
+
+            Row {
+                anchors.verticalCenter: parent.verticalCenter
+                    id: pieceChooser
+                    x: ((8*73-3)/2) - 100
+                    visible: false
+                    property var recentFiles: ["♛", "♞", "♜", "♝"]
+                    Repeater {
+                        model: 4
+                        Rectangle {
+                            color: "#013b6c"
+                            width: 50
+                            height: 50
+                            x: 50
+
+                            anchors.verticalCenter: parent.verticalCenter
+                            z: 102
+                            Text {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                id: pieceChooserTxt
+                                text: pieceChooser.recentFiles[index]
+                                color: "white"
+                                font.pointSize: 30
+
+                            }
+
+                            MouseArea {
+                                 anchors.fill: parent
+                                 hoverEnabled: true
+                                 onEntered: pieceChooserTxt.color = "black"
+                                 onExited: pieceChooserTxt.color = "white"
+                                 onClicked: {
+                                    BoardModel.squares[boardRepeater.activePieceRow][boardRepeater.activePieceCol]
+                                     .changePiece(pieceChooserTxt.text, boardRepeater.activePieceColour, true);
+                                     boardRepeater.checkForCheck();
+                                     pieceChooser.visible = false;
+                                 }
+                             }
+                        }
+                    }
+
+
+
+             }
+
+
+        }
         Grid {
             id: grid;
             rows: 8;
@@ -43,25 +94,36 @@ Window {
                     clearPosMoves();
                     BoardModel.newGame();
                 }
-
                 model: 64
                 id: boardRepeater
+
                 function clearPosMoves () {
                     for (var i=0; i!== boardRepeater.count ; i++) boardRepeater.itemAt(i).children[1].visible = false;
                 }
-                function checkForCheck() {
 
+                function pieceHasReachedEnd () {
+                    //If a pawn has reached the end of the board, show the pieceChooser, replace pawn with chosen piece
+                    //If white pawn has reached the end
+                    if(activePiece === "♟" && activePieceColour == "white" && activePieceRow === 0) {
+                        pieceChooser.visible = true;
+                    }
+                    if(activePiece === "♟" && activePieceColour == "black" && activePieceRow === 7) {
+                        pieceChooser.visible = true;
+                    }
+                }
+
+                function checkForCheck() {
                     isCheckBlack = BoardModel.isCheckForColour("black");
                     if (isCheckBlack) isCheckMateBlack = BoardModel.isCheckMateForColour("black");
-
                     isCheckWhite = BoardModel.isCheckForColour("white");
                     if (isCheckWhite) isCheckMateWhite = BoardModel.isCheckMateForColour("white");
-
                     if(!isCheckBlack && !isCheckWhite) isStaleMate = BoardModel.isStaleMate();
                 }
 
                 Square {}
+
             }
+
         }
         Components.Sidebar {}
      }

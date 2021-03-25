@@ -29,11 +29,10 @@ Piece * Square::getPieceOnSquare() const {
     return this->m_piece;
 }
 
-void Square::changePiece(QString pieceType, QString pieceColour, bool fromUser) {
+void Square::changePiece(QString pieceType, QString pieceColour, bool hasBeenMoved) {
 
     Piece::PieceColour colour = pieceColour == "white" ? Piece::PieceColour::WHITE :
                                 pieceColour == "black" ? Piece::PieceColour::BLACK : Piece::PieceColour::NONE;
-
     int row = this->getRow();
     int col = this->getCol();
 
@@ -46,9 +45,8 @@ void Square::changePiece(QString pieceType, QString pieceColour, bool fromUser) 
     else if(pieceType == "♛") piece = new Queen(colour, row, col);
     else if(pieceType == "♜") piece = new Rook(colour, row, col);
     else piece = new Piece(colour, row, col);
-    if(fromUser) piece->pieceMoved();
+    piece->setMoved(hasBeenMoved);
     this->setPieceOnSquare(piece);
-
 }
 
 int Square::getRow() const {
