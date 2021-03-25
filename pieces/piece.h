@@ -3,15 +3,14 @@
 
 #include <QObject>
 
-class Piece : public QObject
-{
+class Piece : public QObject {
     Q_OBJECT
     Q_PROPERTY(QString pieceColour READ pieceColour NOTIFY pieceColourChanged)
+
     public:
         enum PieceColour {NONE, WHITE, BLACK};
 
         Piece(PieceColour colour, int row, int col);
-
         QString pieceColour();
         int getRow() const;
         int getCol() const;

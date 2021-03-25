@@ -2,10 +2,10 @@
 #define KING_H
 #include "pieces/piece.h"
 
-class King : public Piece
-{
+class King : public Piece {
     Q_OBJECT
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
+
     public:
         King(PieceColour colour, int row, int col);
         virtual ~King();

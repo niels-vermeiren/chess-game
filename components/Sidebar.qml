@@ -56,5 +56,5 @@ Item {
             y: 368
             font.bold: true
         }
-     }
+    }
 }

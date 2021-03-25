@@ -16,7 +16,7 @@ Piece * Piece::clone() {
 
 QString Piece::pieceType() const {
     return "";
-};
+}
 
 QString Piece::pieceColour() {
     switch(this->colour) {
@@ -26,8 +26,6 @@ QString Piece::pieceColour() {
         default: return QString("");
     }
 }
-
-
 
 bool Piece::operator!=(Piece &pc) {
     return this->pieceColour() != pc.pieceColour() || this->pieceType() != pc.pieceType();
@@ -53,6 +51,4 @@ void Piece::setMoved(bool hasMoved) {
     this->moved = hasMoved;
 }
 
-Piece::~Piece(){
-
-}
+Piece::~Piece() {}

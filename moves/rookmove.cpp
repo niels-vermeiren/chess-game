@@ -23,7 +23,6 @@ QList<QList<int>> RookMove::getPossibleMoves() {
     QList<QList<int>> rightMoves = this->getAllMovesInDirection(row, col, 0, 1);
     for(int i = 0; i != rightMoves.count() ; i ++) possibleMoves.append(rightMoves[i]);
 
-
     return possibleMoves;
 }
 

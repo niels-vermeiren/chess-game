@@ -2,8 +2,7 @@
 #define KNIGHT_H
 #include "pieces/piece.h"
 
-class Knight : public Piece
-{
+class Knight : public Piece {
     Q_OBJECT
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
 

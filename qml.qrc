@@ -3,6 +3,5 @@
         <file>Board.qml</file>
         <file>components/Sidebar.qml</file>
         <file>Square.qml</file>
-        <file>PieceModel.qml</file>
     </qresource>
 </RCC>

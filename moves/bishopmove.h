@@ -3,11 +3,10 @@
 
 #include "moves/move.h"
 
-class BishopMove : public Move
-{
-public:
-    BishopMove(Piece * piece, QList<QList<Square *>> squares);
-    QList<QList<int>> getPossibleMoves();
+class BishopMove : public Move {
+    public:
+        BishopMove(Piece * piece, QList<QList<Square *>> squares);
+        QList<QList<int>> getPossibleMoves();
 };
 
 #endif // BISHOPMOVE_H

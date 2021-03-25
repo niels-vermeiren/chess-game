@@ -3,9 +3,7 @@
 Game::Game() {}
 
 QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, int col) {
-
     Piece * piece = board[row][col]->getPieceOnSquare();
-
     Move * move = MoveFactory::createMoveStrategy(piece, board);
     QList<QList<int>> possibleMoves = move->getPossibleMoves();
 
@@ -14,7 +12,6 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
     while(i != possibleMoves.count()) {
         //Make move and check for check
         if(possibleMoves[i].count() > 0) {
-            //Copy piece
             Piece * pieceClone = board[row][col]->getPieceOnSquare()->clone();
             int posRow = possibleMoves[i][0];
             int posCol = possibleMoves[i][1];
@@ -22,7 +19,6 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
 
             //If it is a castling move
             if(isCastlingMove(pieceClone, possibleMoves[i])) {
-
                 pieceClone = castle(board, pieceClone, possibleMoves[i]);
                 isCheck = isCheckForColour(board, pieceClone->pieceColour());
                 reverseCastle(board, pieceClone);
@@ -84,8 +80,8 @@ bool Game::isCheckForColour(QList<QList<Square *>> board, QString colour) {
 }
 
 bool Game::isCheckMateForColour(QList<QList<Square *>> board, QString colour) {
-    //Check if black can make any legal move that doesn't result in a check
-    //Get all possible moves for black
+    //Check if colour can make any legal move that doesn't result in a check
+    //Get all possible moves for colour
     for(int i = 0; i < board.count(); i++) {
         for(int j = 0; j < board[0].count(); j++) {
             if(board[i][j]->getPieceOnSquare()->pieceColour() != colour) continue;
@@ -126,7 +122,6 @@ bool Game::isCheckMateForColour(QList<QList<Square *>> board, QString colour) {
 }
 
 bool Game::isStaleMateForColour(QList<QList<Square *>> board, QString colour) {
-
     //If colour has no legal moves, stalemate has occured
     //Get all pieces of colour
     QList<QList<int>> possibleMoves = {{}};

@@ -2,8 +2,7 @@
 #define BISHOP_H
 #include "pieces/piece.h"
 
-class Bishop : public Piece
-{
+class Bishop : public Piece {
     Q_OBJECT
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
 
@@ -21,7 +20,6 @@ class Bishop : public Piece
 
     private:
         QString m_piece;
-
 };
 
 #endif // BISHOP_H

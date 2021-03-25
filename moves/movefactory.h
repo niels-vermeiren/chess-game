@@ -8,10 +8,9 @@
 #include "moves/queenmove.h"
 #include "moves/kingmove.h"
 
-class MoveFactory
-{
-public:
-    static Move * createMoveStrategy(Piece * piece, QList<QList<Square *>> squares);
+class MoveFactory {
+    public:
+        static Move * createMoveStrategy(Piece * piece, QList<QList<Square *>> squares);
 };
 
 #endif // MOVEFACTORY_H

@@ -7,7 +7,6 @@ Rectangle {
     color: squareColour
     property int row: Math.floor(index/8);
     property int col: index % 8;
-
     property string squareColour: BoardModel ? BoardModel.squares[row][col].squareColour : ""
     property string pieceColour: BoardModel ?  BoardModel.squares[row][col].piece.pieceColour : ""
 
@@ -15,48 +14,46 @@ Rectangle {
         var activePieceCol = col;
         if (BoardModel && posMoveRect.visible) {
             boardRepeater.whiteTurn = !boardRepeater.whiteTurn;
-
-            //Check for castle move
-            if(boardRepeater.activePiece === "♚") {
-                //Check which rook the king is castling to
-                //Left rook?
-                if(boardRepeater.activePieceCol - 2 == col) {
-                    //Move rook to the right side of king
-                    BoardModel.squares[boardRepeater.activePieceRow][0].changePiece("", "", false);
-                    BoardModel.squares[row][2].changePiece("♜", boardRepeater.activePieceColour, true);
-                    activePieceCol = 2;
-                } else if (boardRepeater.activePieceCol + 2 == col) {
-                    BoardModel.squares[boardRepeater.activePieceRow][7].changePiece("", "", false);
-                    BoardModel.squares[row][4].changePiece("♜", boardRepeater.activePieceColour, true);
-                    activePieceCol = 4;
-                }
-            }
+            activePieceCol = checkMakeCastlingMove();
             BoardModel.squares[boardRepeater.activePieceRow][boardRepeater.activePieceCol].changePiece("", "", false);
             BoardModel.squares[row][col].changePiece(boardRepeater.activePiece, boardRepeater.activePieceColour, true);
             boardRepeater.activePieceCol = activePieceCol;
             boardRepeater.activePieceRow = row;
             boardRepeater.checkForCheck();
-            if(boardRepeater.isCheckMateBlack || boardRepeater.isCheckMateWhite) {
-                boardRepeater.gameHasEnded = true;
-                boardRepeater.clearPosMoves();
-            }
         }
         boardRepeater.pieceHasReachedEnd();
         boardRepeater.clearPosMoves();
+    }
+
+    function checkMakeCastlingMove () {
+        var activePieceCol = col;
+        //Check for castle move
+        if(boardRepeater.activePiece === "♚") {
+            //Check which rook the king is castling to
+            if(boardRepeater.activePieceCol - 2 == col) {
+                //Move rook to the right side of king
+                BoardModel.squares[boardRepeater.activePieceRow][0].changePiece("", "", false);
+                BoardModel.squares[row][2].changePiece("♜", boardRepeater.activePieceColour, true);
+                activePieceCol = 2;
+            } else if (boardRepeater.activePieceCol + 2 == col) {
+                BoardModel.squares[boardRepeater.activePieceRow][7].changePiece("", "", false);
+                BoardModel.squares[row][4].changePiece("♜", boardRepeater.activePieceColour, true);
+                activePieceCol = 4;
+            }
+        }
+        return activePieceCol;
     }
 
     function getPossibleMoves() {
         if(BoardModel) {
             if(boardRepeater.gameHasEnded || (boardRepeater.whiteTurn && BoardModel.squares[row][col].piece.pieceColour !== "white")
                     || (!boardRepeater.whiteTurn && BoardModel.squares[row][col].piece.pieceColour !== "black")) return;
-
             var posMoves =  BoardModel.clickedOnPiece(row, col);
             if (!posMoves[0]) boardRepeater.clearPosMoves();
 
             for (var i=0; i!== posMoves.count ; i++) {
                 if(!posMoves[i]) break;
                 var index = posMoves[i][0] * 8 + posMoves[i][1];
-
                 if (i === 0) boardRepeater.clearPosMoves();
                 boardRepeater.activePieceRow = row;
                 boardRepeater.activePieceCol = col;
@@ -65,7 +62,6 @@ Rectangle {
                     boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
                     boardRepeater.itemAt(index).children[1].visible = true;
                 }
-
             }
         }
     }
@@ -94,7 +90,6 @@ Rectangle {
              propagateComposedEvents: true
              anchors.fill: parent
              hoverEnabled: true
-
              onEntered: parent.opacity = 0.8
              onExited: parent.opacity = 0.4
              onClicked: square.movePiece()

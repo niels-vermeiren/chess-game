@@ -3,11 +3,10 @@
 
 #include "moves/move.h"
 
-class RookMove : public Move
-{
-public:
-    RookMove(Piece * piece, QList<QList<Square *>> squares);
-    QList<QList<int>> getPossibleMoves();
+class RookMove : public Move {
+    public:
+        RookMove(Piece * piece, QList<QList<Square *>> squares);
+        QList<QList<int>> getPossibleMoves();
 };
 
 #endif // ROOKMOVE_H

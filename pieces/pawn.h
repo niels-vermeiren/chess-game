@@ -1,10 +1,10 @@
 #ifndef PAWN_H
 #define PAWN_H
 #include "piece.h"
-class Pawn: public Piece
-{
+class Pawn: public Piece {
     Q_OBJECT
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
+
     public:
         Pawn(PieceColour colour, int row, int col);
         virtual ~Pawn();
@@ -19,7 +19,6 @@ class Pawn: public Piece
 
     private:
         QString m_piece;
-
 };
 
 #endif // PAWN_H

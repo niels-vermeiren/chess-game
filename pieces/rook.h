@@ -2,10 +2,10 @@
 #define ROOK_H
 #include "pieces/piece.h"
 
-class Rook : public Piece
-{
+class Rook : public Piece {
     Q_OBJECT
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)
+
     public:
         Rook(PieceColour colour, int row, int col);
         virtual ~Rook();
@@ -20,7 +20,6 @@ class Rook : public Piece
 
     private:
         QString m_piece;
-
 };
 
 #endif // ROOK_H
