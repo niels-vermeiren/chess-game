@@ -19,6 +19,7 @@ class Piece : public QObject {
         void pieceMoved();
         virtual QString pieceType() const;
         virtual Piece * clone();
+        virtual int getScore();
         virtual ~Piece();
 
         bool operator!=(Piece &pc);

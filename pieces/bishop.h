@@ -11,6 +11,7 @@ class Bishop : public Piece {
         virtual ~Bishop();
         Piece * clone();
         QString pieceType() const;
+        int getScore();
 
     public slots:
         void setPiece(QString piece);

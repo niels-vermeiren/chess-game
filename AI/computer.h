@@ -5,6 +5,7 @@
 #include "board/square.h"
 #include "moves/movefactory.h"
 #include "game/game.h"
+#include "AI/boardevaluator.h"
 
 class Computer : public QObject {
     Q_OBJECT

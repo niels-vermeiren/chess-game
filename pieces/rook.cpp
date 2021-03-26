@@ -23,3 +23,7 @@ void Rook::setPiece(QString piece) {
         emit pieceChanged();
     }
 }
+
+int Rook::getScore() {
+    return 50;
+}

@@ -11,6 +11,7 @@ class Rook : public Piece {
         virtual ~Rook();
         Piece * clone();
         QString pieceType() const;
+        int getScore();
 
     public slots:
         void setPiece(QString piece);

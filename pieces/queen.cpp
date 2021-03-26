@@ -23,3 +23,7 @@ void Queen::setPiece(QString piece) {
         emit pieceChanged();
     }
 }
+
+int Queen::getScore() {
+    return 100;
+}

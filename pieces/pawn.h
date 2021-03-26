@@ -10,6 +10,7 @@ class Pawn: public Piece {
         virtual ~Pawn();
         Piece * clone();
         QString pieceType() const;
+        int getScore();
 
     public slots:
         void setPiece(QString piece);

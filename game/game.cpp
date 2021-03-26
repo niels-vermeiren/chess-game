@@ -4,10 +4,9 @@ Game::Game() {}
 
 QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, int col) {
     QList<QList<int>> possibleMoves;
-    Piece * piece = board[row][col]->getPieceOnSquare();
-    if (piece->pieceType() == "") return possibleMoves;
-
-    Move * move = MoveFactory::createMoveStrategy(piece, board);
+    Piece * pieceClone = board[row][col]->getPieceOnSquare()->clone();
+    if (pieceClone->pieceType() == "") return possibleMoves;
+    Move * move = MoveFactory::createMoveStrategy(pieceClone, board);
     possibleMoves = move->getPossibleMoves();
 
     //Check if move does not result in a check, if so remove possible move
@@ -15,11 +14,7 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
     while(i != possibleMoves.count()) {
         //Make move and check for check
         if(possibleMoves[i].count() > 0) {
-            Piece * pieceClone = board[row][col]->getPieceOnSquare()->clone();
-            int posRow = possibleMoves[i][0];
-            int posCol = possibleMoves[i][1];
             bool isCheck = false;
-
             //If it is a castling move
             if(isCastlingMove(pieceClone, possibleMoves[i])) {
                 pieceClone = castle(board, pieceClone, possibleMoves[i]);
@@ -28,21 +23,16 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
             //If it is not a castling move
             } else {
                 //Make move
-                board[row][col]->changePiece("","", false);
-                Piece * capturedPiece = board[posRow][posCol]->getPieceOnSquare()->clone();
-                board[posRow][posCol]->changePiece(pieceClone->pieceType(), pieceClone->pieceColour(), pieceClone->hasMoved());
-
+                Piece * capturedPiece = makeMove(board, pieceClone, possibleMoves[i])->clone();
                 isCheck = isCheckForColour(board, pieceClone->pieceColour());
                 //Revert move
-                board[row][col]->changePiece(pieceClone->pieceType(), pieceClone->pieceColour(), pieceClone->hasMoved());
-                board[posRow][posCol]->changePiece(capturedPiece->pieceType(), capturedPiece->pieceColour(), capturedPiece->hasMoved());
+                undoMove(board, pieceClone, capturedPiece, row, col);
             }
 
             if (!isCheck) i++;
             else possibleMoves.remove(i);
         }
     }
-
     return possibleMoves;
 }
 
@@ -97,8 +87,6 @@ bool Game::isCheckMateForColour(QList<QList<Square *>> board, QString colour) {
                 if(possibleMoves[k].count() > 0) {
                     //Copy piece
                     Piece * piece = board[i][j]->getPieceOnSquare()->clone();
-                    int row = possibleMoves[k][0];
-                    int col = possibleMoves[k][1];
 
                     //If it is a castling move
                     if(isCastlingMove(piece, possibleMoves[k])) {
@@ -107,14 +95,10 @@ bool Game::isCheckMateForColour(QList<QList<Square *>> board, QString colour) {
                         reverseCastle(board, piece);
                     } else {
                         //Move
-                        board[i][j]->changePiece("","", false);
-                        Piece * capturedPiece = board[row][col]->getPieceOnSquare()->clone();
-                        board[row][col]->changePiece(piece->pieceType(), piece->pieceColour(), capturedPiece->hasMoved());
+                        Piece * capturedPiece = makeMove(board, piece, possibleMoves[k]);
                         isNotCheckMate = !isCheckForColour(board, colour);
-
+                        undoMove(board, piece, capturedPiece, i, j);
                         //Revert move
-                        board[i][j]->changePiece(piece->pieceType(), piece->pieceColour(), piece->hasMoved());
-                        board[row][col]->changePiece(capturedPiece->pieceType(), capturedPiece->pieceColour(), capturedPiece->hasMoved());
                     }
                     if (isNotCheckMate) return false;
                 }
@@ -152,6 +136,19 @@ bool Game::isRightCastlingMove(Piece * piece, QList<int> possibleMove) {
     return piece->getCol() + 2 == possibleMove[1];
 }
 
+Piece * Game::makeMove(QList<QList<Square *>> board, Piece * piece, QList<int> possibleMove) {
+    int row = piece->getRow();
+    int col = piece->getCol();
+    board[row][col]->changePiece("","", false);
+    Piece * capturedPiece = board[possibleMove[0]][possibleMove[1]]->getPieceOnSquare()->clone();
+    board[possibleMove[0]][possibleMove[1]]->changePiece(piece->pieceType(), piece->pieceColour(), capturedPiece->hasMoved());
+    return capturedPiece;
+};
+
+void Game::undoMove(QList<QList<Square *>> board, Piece * piece, Piece * capturedPiece, int row, int col) {
+    board[row][col]->changePiece(piece->pieceType(), piece->pieceColour(), piece->hasMoved());
+    board[capturedPiece->getRow()][capturedPiece->getCol()]->changePiece(capturedPiece->pieceType(), capturedPiece->pieceColour(), capturedPiece->hasMoved());
+};
 
 Piece * Game::castle(QList<QList<Square *>> board, Piece * piece, QList<int> possibleMove) {
     //If is a castling move (col should differ 2 from possibleMoveCole

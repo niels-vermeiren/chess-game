@@ -22,3 +22,7 @@ void King::setPiece(QString piece) {
         emit pieceChanged();
     }
 }
+
+int King::getScore() {
+    return 900;
+}

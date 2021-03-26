@@ -52,3 +52,7 @@ void Piece::setMoved(bool hasMoved) {
 }
 
 Piece::~Piece() {}
+
+int Piece::getScore() {
+    return 0;
+}

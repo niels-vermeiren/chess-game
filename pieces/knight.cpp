@@ -22,3 +22,6 @@ void Knight::setPiece(QString piece) {
         emit pieceChanged();
     }
 }
+int Knight::getScore() {
+    return 30;
+}

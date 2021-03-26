@@ -22,3 +22,7 @@ void Pawn::setPiece(QString piece) {
         emit pieceChanged();
     }
 }
+
+int Pawn::getScore() {
+    return 10;
+}

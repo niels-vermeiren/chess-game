@@ -22,3 +22,7 @@ void Bishop::setPiece(QString piece) {
         emit pieceChanged();
     }
 }
+
+int Bishop::getScore() {
+    return 30;
+}

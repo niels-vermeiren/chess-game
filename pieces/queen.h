@@ -11,6 +11,7 @@ class Queen : public Piece {
         virtual ~Queen();
         Piece * clone();
         QString pieceType() const;
+        int getScore();
 
     public slots:
         void setPiece(QString piece);
