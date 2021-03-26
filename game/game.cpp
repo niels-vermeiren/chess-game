@@ -15,20 +15,11 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
         //Make move and check for check
         if(possibleMoves[i].count() > 0) {
             bool isCheck = false;
-            //If it is a castling move
-            if(isCastlingMove(pieceClone, possibleMoves[i])) {
-                pieceClone = castle(board, pieceClone, possibleMoves[i]);
-                isCheck = isCheckForColour(board, pieceClone->pieceColour());
-                reverseCastle(board, pieceClone);
-            //If it is not a castling move
-            } else {
-                //Make move
-                Piece * capturedPiece = makeMove(board, pieceClone, possibleMoves[i])->clone();
-                isCheck = isCheckForColour(board, pieceClone->pieceColour());
-                //Revert move
-                undoMove(board, pieceClone, capturedPiece, row, col);
-            }
-
+            //Make move
+            Piece * capturedPiece = makeMove(board, pieceClone, possibleMoves[i])->clone();
+            isCheck = isCheckForColour(board, pieceClone->pieceColour());
+            //Revert move
+            undoMove(board, pieceClone, capturedPiece, row, col);
             if (!isCheck) i++;
             else possibleMoves.remove(i);
         }
