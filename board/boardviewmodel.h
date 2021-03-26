@@ -7,6 +7,7 @@
 #include "moves/pawnmove.h"
 #include "moves/movefactory.h"
 #include "game/game.h"
+#include "AI/computer.h"
 
 class BoardViewModel : public QObject
 {
@@ -20,16 +21,19 @@ class BoardViewModel : public QObject
 
     public:
         BoardViewModel();
+        virtual ~BoardViewModel();
         QList<QList<Square *>> squares () const;
         Q_INVOKABLE QList<QList<int>> clickedOnPiece(int row, int col);
         Q_INVOKABLE void newGame();
         Q_INVOKABLE bool isCheckForColour(QString colour);
         Q_INVOKABLE bool isCheckMateForColour(QString colour);
         Q_INVOKABLE bool isStaleMate();
+        Q_INVOKABLE void makeAIMove();
 
     private:
         QList<QList<Square *>> m_squares;
         void setSquares(QList<QList<Square *>> squares);
+        Computer * blackPlayer;
 
     signals:
         void squaresChanged();

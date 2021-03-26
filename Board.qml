@@ -69,7 +69,6 @@ Window {
                 property int activePieceCol: -1
                 property string activePiece: ""
                 property string activePieceColour: ""
-                property bool whiteTurn: true
                 property bool isCheckBlack: false
                 property bool isCheckMateBlack: false
                 property bool isCheckWhite: false
@@ -79,7 +78,6 @@ Window {
                 property bool pieceChooserIsVisible: false
 
                 function resetGame() {
-                    whiteTurn = true;
                     isCheckBlack = false;
                     isCheckMateBlack = false;
                     isCheckWhite = false;
@@ -99,9 +97,6 @@ Window {
                 function pieceHasReachedEnd () {
                     //If a pawn has reached the end of the board, show the pieceChooser, replace pawn with chosen piece
                     if(activePiece === "♟" && activePieceColour == "white" && activePieceRow === 0) {
-                        pieceChooser.visible = true;
-                    }
-                    if(activePiece === "♟" && activePieceColour == "black" && activePieceRow === 7) {
                         pieceChooser.visible = true;
                     }
                 }

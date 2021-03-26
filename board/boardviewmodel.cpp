@@ -2,6 +2,7 @@
 
 BoardViewModel::BoardViewModel(){
     this->m_squares = BoardFactory::createBoard();
+    this->blackPlayer = new Computer(this->m_squares);
 }
 
 QList<QList<Square*>> BoardViewModel::squares () const {
@@ -14,6 +15,7 @@ QList<QList<int>> BoardViewModel::clickedOnPiece(int row, int col) {
 
 void BoardViewModel::newGame() {
     this->setSquares(BoardFactory::createBoard());
+    this->blackPlayer = new Computer(this->squares());
 }
 
 void BoardViewModel::setSquares(QList<QList<Square *>> squares) {
@@ -41,4 +43,12 @@ bool BoardViewModel::isStaleMate() {
         return true;
     }
     return false;
+}
+
+void BoardViewModel::makeAIMove() {
+    this->blackPlayer->makeMove();
+}
+
+BoardViewModel::~BoardViewModel() {
+    delete this->blackPlayer;
 }

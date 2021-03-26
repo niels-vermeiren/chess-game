@@ -1,6 +1,6 @@
 # Chess Game
 
-As with so many people, the series 'The Queen's gambit' peeked my interest in chess. In order to understand
+As with so many people, the series 'The Queen's Gambit' peeked my interest in chess. In order to understand
 the game at a deeper level, I decided to create my own Chess game. I also wanted to learn how to code in Qt and C++, 
 and potentially to develop a simple chess A.I. 
 

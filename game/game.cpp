@@ -3,9 +3,12 @@
 Game::Game() {}
 
 QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, int col) {
+    QList<QList<int>> possibleMoves;
     Piece * piece = board[row][col]->getPieceOnSquare();
+    if (piece->pieceType() == "") return possibleMoves;
+
     Move * move = MoveFactory::createMoveStrategy(piece, board);
-    QList<QList<int>> possibleMoves = move->getPossibleMoves();
+    possibleMoves = move->getPossibleMoves();
 
     //Check if move does not result in a check, if so remove possible move
     int i = 0;

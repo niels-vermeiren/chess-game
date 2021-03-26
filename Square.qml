@@ -13,16 +13,16 @@ Rectangle {
     function movePiece() {
         var activePieceCol = col;
         if (BoardModel && posMoveRect.visible) {
-            boardRepeater.whiteTurn = !boardRepeater.whiteTurn;
             activePieceCol = checkMakeCastlingMove();
             BoardModel.squares[boardRepeater.activePieceRow][boardRepeater.activePieceCol].changePiece("", "", false);
             BoardModel.squares[row][col].changePiece(boardRepeater.activePiece, boardRepeater.activePieceColour, true);
             boardRepeater.activePieceCol = activePieceCol;
             boardRepeater.activePieceRow = row;
-            boardRepeater.checkForCheck();
         }
+        boardRepeater.checkForCheck();
         boardRepeater.pieceHasReachedEnd();
         boardRepeater.clearPosMoves();
+        BoardModel.makeAIMove();
     }
 
     function checkMakeCastlingMove () {
@@ -44,24 +44,21 @@ Rectangle {
         return activePieceCol;
     }
 
-    function getPossibleMoves() {
-        if(BoardModel) {
-            if(boardRepeater.gameHasEnded || (boardRepeater.whiteTurn && BoardModel.squares[row][col].piece.pieceColour !== "white")
-                    || (!boardRepeater.whiteTurn && BoardModel.squares[row][col].piece.pieceColour !== "black")) return;
-            var posMoves =  BoardModel.clickedOnPiece(row, col);
-            if (!posMoves[0]) boardRepeater.clearPosMoves();
+    function getPossibleMoves() {       
+        if(!BoardModel || boardRepeater.gameHasEnded || BoardModel.squares[row][col].piece.pieceColour === "black") return;
+        var posMoves =  BoardModel.clickedOnPiece(row, col);
+        if (!posMoves[0]) boardRepeater.clearPosMoves();
 
-            for (var i=0; i!== posMoves.count ; i++) {
-                if(!posMoves[i]) break;
-                var index = posMoves[i][0] * 8 + posMoves[i][1];
-                if (i === 0) boardRepeater.clearPosMoves();
-                boardRepeater.activePieceRow = row;
-                boardRepeater.activePieceCol = col;
-                if(BoardModel.squares[row][col].piece && BoardModel.squares[row][col].piece.pieceColour) {
-                    boardRepeater.activePieceColour = BoardModel.squares[row][col].piece.pieceColour;
-                    boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
-                    boardRepeater.itemAt(index).children[1].visible = true;
-                }
+        for (var i=0; i!== posMoves.count ; i++) {
+            if(!posMoves[i]) break;
+            var index = posMoves[i][0] * 8 + posMoves[i][1];
+            if (i === 0) boardRepeater.clearPosMoves();
+            boardRepeater.activePieceRow = row;
+            boardRepeater.activePieceCol = col;
+            if(BoardModel.squares[row][col].piece && BoardModel.squares[row][col].piece.pieceColour) {
+                boardRepeater.activePieceColour = BoardModel.squares[row][col].piece.pieceColour;
+                boardRepeater.activePiece = BoardModel.squares[row][col].piece.piece;
+                boardRepeater.itemAt(index).children[1].visible = true;
             }
         }
     }
