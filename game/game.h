@@ -16,11 +16,14 @@ class Game {
         static bool isCastlingMove(Piece * piece, QList<int> possibleMove);
         static Piece * makeMove(QList<QList<Square *>> board, Piece * piece, QList<int> possibleMove);
         static void undoMove(QList<QList<Square *>> board, Piece * piece, Piece * capturedPiece, int row, int col);
-        static void reverseCastle(QList<QList<Square*>> board, Piece * piece);
         static Piece * castle(QList<QList<Square*>> board, Piece * piece, QList<int> possibleMove);
+        static void reverseCastle(QList<QList<Square*>> board, Piece * piece);
+
+        static const int DEPTH = 2;
     private:
         static bool isLeftCastlingMove(Piece * piece, QList<int> possibleMove);
         static bool isRightCastlingMove(Piece * piece, QList<int> possibleMove);
+
 };
 
 #endif // GAME_H

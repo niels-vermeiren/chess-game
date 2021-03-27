@@ -10,6 +10,20 @@ Rectangle {
     property string squareColour: BoardModel ? BoardModel.squares[row][col].squareColour : ""
     property string pieceColour: BoardModel ?  BoardModel.squares[row][col].piece.pieceColour : ""
 
+    Timer {
+        id: timer
+        function setTimeout(cb, delayTime) {
+            timer.interval = delayTime;
+            timer.repeat = false;
+            timer.triggered.connect(cb);
+            timer.triggered.connect(function release () {
+                timer.triggered.disconnect(cb);
+                timer.triggered.disconnect(release); // This is important as well
+            });
+            timer.start();
+        }
+    }
+
     function movePiece() {
         var activePieceCol = col;
         if (BoardModel && posMoveRect.visible) {
@@ -21,8 +35,11 @@ Rectangle {
         }
         boardRepeater.pieceHasReachedEnd();
         boardRepeater.clearPosMoves();
-        BoardModel.makeAIMove();
         boardRepeater.checkForCheck();
+        timer.setTimeout(function() {
+            BoardModel.makeAIMove();
+            boardRepeater.checkForCheck();
+        }, 1)
     }
 
     function checkMakeCastlingMove () {

@@ -6,16 +6,17 @@
 #include "moves/movefactory.h"
 #include "game/game.h"
 #include "AI/boardevaluator.h"
+#include "minimax.h"
 
 class Computer : public QObject {
     Q_OBJECT
     private:
+        Minimax * minimax;
         QList<QList<Square *>> board;
         void replacePawnWithPiece(Piece * piece, QList<int> move);
-        QHash<Piece *, QList<int>> getBestMove();
-        QHash<Piece *, QList<int>> getRandomMove();
     public:
         Computer(QList<QList<Square *>> board);
+        virtual ~Computer();
         Q_INVOKABLE void makeMove();
 };
 
