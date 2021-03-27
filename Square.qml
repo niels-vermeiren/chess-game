@@ -19,10 +19,10 @@ Rectangle {
             boardRepeater.activePieceCol = activePieceCol;
             boardRepeater.activePieceRow = row;
         }
-        boardRepeater.checkForCheck();
         boardRepeater.pieceHasReachedEnd();
         boardRepeater.clearPosMoves();
         BoardModel.makeAIMove();
+        boardRepeater.checkForCheck();
     }
 
     function checkMakeCastlingMove () {

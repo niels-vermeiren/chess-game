@@ -54,7 +54,9 @@ bool Game::isCheckForColour(QList<QList<Square *>> board, QString colour) {
                     int possibleRow = possibleMoves[k][0];
                     int possibleCol = possibleMoves[k][1];
 
-                    if(king->getRow() == possibleRow && king->getCol() == possibleCol) return true;
+                    if(king->getRow() == possibleRow && king->getCol() == possibleCol) {
+                        return true;
+                    }
                 }
             }
         }
