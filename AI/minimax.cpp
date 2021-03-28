@@ -4,20 +4,18 @@ Minimax::Minimax(QList<QList<Square *>> board) {
     this->board = board;
 }
 
-
 QHash<Piece *, QList<int>> Minimax::minimaxRoot(int depth) {
-
     QHash<Piece *, QList<QList<int>>> newGameMoves = this->getNextMoves("black");
     int bestMove = -9999;
     QHash<Piece *, QList<int>> bestNextMove;
 
     for (int i = 0; i < newGameMoves.count(); i++) {
         for (int j = 0; j < newGameMoves.values()[i].count(); j++) {
-            Piece * pieceClone = newGameMoves.keys()[i]->clone();
+            Piece * pieceClone = newGameMoves.keys()[i];
             int row = pieceClone->getRow();
             int col = pieceClone->getCol();
-            Piece * capturedPiece = Game::makeMove(board, pieceClone, newGameMoves.values()[i][j])->clone();
-            int value = minimax(depth -1, board, false);
+            Piece * capturedPiece = Game::makeMove(board, pieceClone, newGameMoves.values()[i][j]);
+            int value = minimax(depth -1, board, -100000, 100000, false);
             Game::undoMove(board, pieceClone, capturedPiece, row, col);
 
             if(value >= bestMove) {
@@ -32,24 +30,25 @@ QHash<Piece *, QList<int>> Minimax::minimaxRoot(int depth) {
     return bestNextMove;
 };
 
-int Minimax::minimax(int depth, QList<QList<Square *>> board, bool isMaximisingPlayer) {
+int Minimax::minimax(int depth, QList<QList<Square *>> board, int alpha, int beta, bool isMaximisingPlayer) {
     if (depth == 0) {
         return BoardEvaluator::evaluateBoard(board);
     }
-
-    //New game moves
-
     if (isMaximisingPlayer) {
         int bestMove = -9999;
         QHash<Piece *, QList<QList<int>>> newGameMoves = getNextMoves("black");
         for (int i = 0; i < newGameMoves.count(); i++) {
             for (int j = 0; j < newGameMoves.values()[i].count(); j++) {
-                Piece * pieceClone = newGameMoves.keys()[i]->clone();
-                int row = pieceClone->getRow();
-                int col = pieceClone->getCol();
-                Piece * capturedPiece = Game::makeMove(board, pieceClone, newGameMoves.values()[i][j])->clone();
-                bestMove = std::max(bestMove, minimax(depth - 1, board, !isMaximisingPlayer));
-                Game::undoMove(board, pieceClone, capturedPiece, row, col);
+                Piece * piece = newGameMoves.keys()[i];
+                int row = piece->getRow();
+                int col = piece->getCol();
+                Piece * capturedPiece = Game::makeMove(board, piece, newGameMoves.values()[i][j]);
+                bestMove = std::max(bestMove, minimax(depth - 1, board, alpha, beta, !isMaximisingPlayer));
+                Game::undoMove(board, piece, capturedPiece, row, col);
+                alpha = std::max(alpha, bestMove);
+                if (alpha >= beta) {
+                    return bestMove;
+                }
             }
         }
         return bestMove;
@@ -58,12 +57,16 @@ int Minimax::minimax(int depth, QList<QList<Square *>> board, bool isMaximisingP
         QHash<Piece *, QList<QList<int>>> newGameMoves = getNextMoves("white");
         for (int i = 0; i < newGameMoves.count(); i++) {
             for (int j = 0; j < newGameMoves.values()[i].count(); j++) {
-                Piece * pieceClone = newGameMoves.keys()[i]->clone();
-                int row = pieceClone->getRow();
-                int col = pieceClone->getCol();
-                Piece * capturedPiece = Game::makeMove(board, pieceClone, newGameMoves.values()[i][j])->clone();
-                bestMove = std::min(bestMove, minimax(depth - 1, board, !isMaximisingPlayer));
-                Game::undoMove(board, pieceClone, capturedPiece, row, col);
+                Piece * piece = newGameMoves.keys()[i];
+                int row = piece->getRow();
+                int col = piece->getCol();
+                Piece * capturedPiece = Game::makeMove(board, piece, newGameMoves.values()[i][j]);
+                bestMove = std::min(bestMove, minimax(depth - 1, board, alpha, beta, !isMaximisingPlayer));
+                Game::undoMove(board, piece, capturedPiece, row, col);
+                beta = std::min(beta, bestMove);
+                if (beta <= alpha) {
+                    return bestMove;
+                }
             }
         }
         return bestMove;

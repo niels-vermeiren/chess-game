@@ -9,8 +9,8 @@ Computer::~Computer() {
     delete this->minimax;
 }
 
-Q_INVOKABLE void Computer::makeMove() {
-    QHash<Piece *, QList<int>> move = this->minimax->minimaxRoot(Game::DEPTH);
+void Computer::makeMove() {
+    QHash<Piece *, QList<int>> move = this->minimax->minimaxRoot(2);
     //Move piece
     if (move.count() > 0) {
         Piece * piece = move.keys()[0]->clone();
@@ -27,4 +27,3 @@ void Computer::replacePawnWithPiece(Piece * piece, QList<int> move) {
         this->board[move[0]][move[1]]->changePiece("♛", piece->pieceColour(), true);
     }
 }
-

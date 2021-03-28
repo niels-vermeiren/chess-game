@@ -76,6 +76,7 @@ Window {
                 property bool gameHasEnded: false
                 property bool isStaleMate: false
                 property bool pieceChooserIsVisible: false
+                property double elapsedTime;
 
                 function resetGame() {
                     isCheckBlack = false;

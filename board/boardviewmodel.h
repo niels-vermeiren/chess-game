@@ -8,6 +8,7 @@
 #include "moves/movefactory.h"
 #include "game/game.h"
 #include "AI/computer.h"
+#include "AI/minimax.h"
 
 class BoardViewModel : public QObject
 {

@@ -56,5 +56,11 @@ Item {
             y: 368
             font.bold: true
         }
+        Text {
+            text: "Move calculated in: " + boardRepeater.elapsedTime + " ms"
+            color: "white"
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 550
+        }
     }
 }

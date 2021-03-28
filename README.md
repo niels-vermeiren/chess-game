@@ -13,4 +13,6 @@ and potentially to develop a simple chess A.I.
 - Castling
 - Set a chosen piece when a pawn reaches the end
 - Stalemate
-- Simple chess AI using MINIMAX search tree (TO-DO)
+- Simple chess AI using MINIMAX search tree
+- Alpha beta pruning
+- Position lookup tables in evaluation function

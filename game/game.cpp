@@ -28,24 +28,19 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
 }
 
 bool Game::isCheckForColour(QList<QList<Square *>> board, QString colour) {
-    //Get position of black king
+    //Get position of king of colour
     Piece * king;
-    bool kingFound = false;
-    for(int i = 0; i < board.count(); i++) {
-        for(int j = 0; j < board[0].count(); j++) {
-            if(board[i][j]->getPieceOnSquare()->pieceType() == "♚" && board[i][j]->getPieceOnSquare()->pieceColour() == colour) {
-                king = board[i][j]->getPieceOnSquare();
-                kingFound = true;
-                break;
-            }
-        }
-        if (kingFound) break;
+
+    if (colour == "black") {
+        king = board[Positions::getBlackKingPosition()[0]][Positions::getBlackKingPosition()[1]]->getPieceOnSquare();
+    } else {
+        king = board[Positions::getWhiteKingPosition()[0]][Positions::getWhiteKingPosition()[1]]->getPieceOnSquare();
     }
 
     //Check if white can make a move that captures black king
-    for(int i = 0; i < board.count() && kingFound; i++) {
+    for(int i = 0; i < board.count(); i++) {
         for(int j = 0; j < board[0].count(); j++) {
-            if(board[i][j]->getPieceOnSquare()->pieceColour( ) == colour) continue;
+            if(board[i][j]->getPieceOnSquare()->pieceColour() == colour) continue;
             Move * move = MoveFactory::createMoveStrategy(board[i][j]->getPieceOnSquare(), board);
             QList<QList<int>> possibleMoves = move->getPossibleMoves();
 

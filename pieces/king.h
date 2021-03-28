@@ -1,7 +1,7 @@
 #ifndef KING_H
 #define KING_H
 #include "pieces/piece.h"
-
+#include "game/positions.h"
 class King : public Piece {
     Q_OBJECT
     Q_PROPERTY(QString piece READ pieceType WRITE setPiece NOTIFY pieceChanged)

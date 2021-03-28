@@ -1,6 +1,13 @@
 #include "king.h"
 
-King::King(PieceColour colour, int row, int col) : Piece(colour, row, col) {}
+King::King(PieceColour colour, int row, int col) : Piece(colour, row, col) {
+    if (this->pieceColour() == "black") {
+        Positions::setBlackKingPosition({row, col});
+    } else {
+        Positions::setWhiteKingPosition({row, col});
+    }
+}
+
 King::~King() {}
 
 Piece * King::clone() {

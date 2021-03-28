@@ -1,6 +1,5 @@
 #ifndef KNIGHTMOVE_H
 #define KNIGHTMOVE_H
-
 #include "moves/move.h"
 
 class KnightMove : public Move {

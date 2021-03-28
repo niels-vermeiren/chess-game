@@ -2,7 +2,6 @@
 #define COMPUTER_H
 #include "pieces/piece.h"
 #include <QHash>
-#include "board/square.h"
 #include "moves/movefactory.h"
 #include "game/game.h"
 #include "AI/boardevaluator.h"

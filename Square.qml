@@ -18,7 +18,7 @@ Rectangle {
             timer.triggered.connect(cb);
             timer.triggered.connect(function release () {
                 timer.triggered.disconnect(cb);
-                timer.triggered.disconnect(release); // This is important as well
+                timer.triggered.disconnect(release);
             });
             timer.start();
         }
@@ -37,7 +37,9 @@ Rectangle {
         boardRepeater.clearPosMoves();
         boardRepeater.checkForCheck();
         timer.setTimeout(function() {
+            var startTime = new Date().getTime()
             BoardModel.makeAIMove();
+            boardRepeater.elapsedTime = new Date().getTime() - startTime
             boardRepeater.checkForCheck();
         }, 1)
     }
