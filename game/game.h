@@ -19,6 +19,7 @@ class Game {
         static void undoMove(QList<QList<Square *>> board, Piece * piece, Piece * capturedPiece, int row, int col);
         static Piece * castle(QList<QList<Square*>> board, Piece * piece, QList<int> possibleMove);
         static void reverseCastle(QList<QList<Square*>> board, Piece * piece);
+        static const int DEPTH = 2;
 
     private:
         static bool isLeftCastlingMove(Piece * piece, QList<int> possibleMove);

@@ -10,7 +10,7 @@ Computer::~Computer() {
 }
 
 void Computer::makeMove() {
-    QHash<Piece *, QList<int>> move = this->minimax->minimaxRoot(2);
+    QHash<Piece *, QList<int>> move = this->minimax->minimaxRoot(Game::DEPTH);
     //Move piece
     if (move.count() > 0) {
         Piece * piece = move.keys()[0]->clone();
