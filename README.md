@@ -16,3 +16,8 @@ and develop a simple chess A.I.
 - Simple chess AI using MINIMAX search tree
 - Alpha beta pruning
 - Position lookup tables in evaluation function
+
+## To-do's
+
+- Keep track of white and black pieces 
+- Chess bitboard
