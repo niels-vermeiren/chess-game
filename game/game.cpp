@@ -14,14 +14,19 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
     while(i != possibleMoves.count()) {
         //Make move and check for check
         if(possibleMoves[i].count() > 0) {
-            bool isCheck = false;
-            //Make move
-            Piece * capturedPiece = makeMove(board, pieceClone, possibleMoves[i])->clone();
-            isCheck = isCheckForColour(board, pieceClone->pieceColour());
-            //Revert move
-            undoMove(board, pieceClone, capturedPiece, row, col);
-            if (!isCheck) i++;
-            else possibleMoves.remove(i);
+
+            if(isCheckForColour(board, pieceClone->pieceColour()) && isCastlingMove(pieceClone, possibleMoves[i])) {
+                possibleMoves.remove(i);
+            } else {
+                bool isCheck = false;
+                //Make move
+                Piece * capturedPiece = makeMove(board, pieceClone, possibleMoves[i])->clone();
+                isCheck = isCheckForColour(board, pieceClone->pieceColour());
+                //Revert move
+                undoMove(board, pieceClone, capturedPiece, row, col);
+                if (!isCheck) i++;
+                else possibleMoves.remove(i);
+            }
         }
     }
     return possibleMoves;
@@ -150,7 +155,7 @@ Piece * Game::castle(QList<QList<Square *>> board, Piece * piece, QList<int> pos
         piece = board[piece->getRow()][piece->getCol() - 2]->getPieceOnSquare()->clone();
         //Move rook to the right side of king
         board[piece->getRow()][0]->changePiece("", "", false);
-        board[piece->getRow()][2]->changePiece("♜", piece->pieceColour(), piece->hasMoved());
+        board[piece->getRow()][3]->changePiece("♜", piece->pieceColour(), piece->hasMoved());
 
     } else if (isRightCastlingMove(piece, possibleMove) && board[piece->getRow()][7]->getPieceOnSquare()->pieceType() == "♜") {
         //Move king two to the left
@@ -160,7 +165,7 @@ Piece * Game::castle(QList<QList<Square *>> board, Piece * piece, QList<int> pos
         piece = board[piece->getRow()][piece->getCol() + 2]->getPieceOnSquare()->clone();
         //Move rook to the right side of king
         board[piece->getRow()][7]->changePiece("", "", false);
-        board[piece->getRow()][4]->changePiece("♜", piece->pieceColour(), piece->hasMoved());
+        board[piece->getRow()][5]->changePiece("♜", piece->pieceColour(), piece->hasMoved());
 
     }
     return piece;

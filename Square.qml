@@ -52,12 +52,12 @@ Rectangle {
             if(boardRepeater.activePieceCol - 2 == col) {
                 //Move rook to the right side of king
                 BoardModel.squares[boardRepeater.activePieceRow][0].changePiece("", "", false);
-                BoardModel.squares[row][2].changePiece("♜", boardRepeater.activePieceColour, true);
-                activePieceCol = 2;
+                BoardModel.squares[row][3].changePiece("♜", boardRepeater.activePieceColour, true);
+                activePieceCol = 3;
             } else if (boardRepeater.activePieceCol + 2 == col) {
                 BoardModel.squares[boardRepeater.activePieceRow][7].changePiece("", "", false);
-                BoardModel.squares[row][4].changePiece("♜", boardRepeater.activePieceColour, true);
-                activePieceCol = 4;
+                BoardModel.squares[row][5].changePiece("♜", boardRepeater.activePieceColour, true);
+                activePieceCol = 5;
             }
         }
         return activePieceCol;

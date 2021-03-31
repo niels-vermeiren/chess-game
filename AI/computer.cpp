@@ -15,8 +15,15 @@ void Computer::makeMove() {
     if (move.count() > 0) {
         Piece * piece = move.keys()[0]->clone();
         QList<int> possibleMove = move.values()[0];
-        this->board[piece->getRow()][piece->getCol()]->changePiece("", "", false);
-        this->board[possibleMove[0]][possibleMove[1]]->changePiece(piece->pieceType(), piece->pieceColour(), true);
+
+        if (Game::isCastlingMove(piece, possibleMove)) {
+            piece->hasMoved();
+            Game::castle(board, piece, possibleMove);
+        } else {
+            piece->hasMoved();
+            Game::makeMove(board, piece, possibleMove);
+        }
+
         replacePawnWithPiece(piece, possibleMove);
     }
 }

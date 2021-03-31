@@ -14,6 +14,7 @@ QHash<Piece *, QList<int>> Minimax::minimaxRoot(int depth) {
             Piece * pieceClone = newGameMoves.keys()[i];
             int row = pieceClone->getRow();
             int col = pieceClone->getCol();
+
             Piece * capturedPiece = Game::makeMove(board, pieceClone, newGameMoves.values()[i][j]);
             int value = minimax(depth -1, board, -100000, 100000, false);
             Game::undoMove(board, pieceClone, capturedPiece, row, col);

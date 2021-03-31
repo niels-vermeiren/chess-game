@@ -44,7 +44,7 @@ QList<QList<int>> KingMove::getPossibleMoves() {
         //Left rook
         if(!this->piece->hasMoved() && !this->squares[row][0]->getPieceOnSquare()->hasMoved()) {
             //If there are no pieces between king and rook
-            if(squares[row][1]->getPieceOnSquare()->pieceType() == "" && squares[row][2]->getPieceOnSquare()->pieceType() == "") {
+            if(squares[row][1]->getPieceOnSquare()->pieceType() == "" && squares[row][2]->getPieceOnSquare()->pieceType() == "" && squares[row][3]->getPieceOnSquare()->pieceType() == "") {
                 //Move king to square 1
                 possibleMoves.append({row, col - 2});
             }
@@ -53,7 +53,7 @@ QList<QList<int>> KingMove::getPossibleMoves() {
         //Right rook
         if(!this->piece->hasMoved() && !this->squares[row][7]->getPieceOnSquare()->hasMoved()) {
             //If there are no pieces between king and rook
-            if(squares[row][6]->getPieceOnSquare()->pieceType() == "" && squares[row][5]->getPieceOnSquare()->pieceType() == "" && squares[row][4]->getPieceOnSquare()->pieceType() == "") {
+            if(squares[row][6]->getPieceOnSquare()->pieceType() == "" && squares[row][5]->getPieceOnSquare()->pieceType() == "") {
                 //Move king to square 1
                 possibleMoves.append({row, col + 2});
             }
