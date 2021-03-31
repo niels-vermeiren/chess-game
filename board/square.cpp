@@ -11,8 +11,8 @@ Square::Square(SquareColour colour, Piece *piece, int row, int col) {
 
 QString Square::squareColour() const {
     switch(this->colour) {
-        case WHITE: return QString("#ad9a4c");
-        case BLACK: return QString("#076a91");
+        case WHITE: return QString("#b5b262");
+        case BLACK: return QString("#22751c");
         default: return QString("");
     }
 }
