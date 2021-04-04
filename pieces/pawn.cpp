@@ -17,10 +17,9 @@ QString Pawn::pieceType() const {
 }
 
 void Pawn::setPiece(QString piece) {
-    if(this->m_piece != piece) {
-        this->m_piece = piece;
-        emit pieceChanged();
-    }
+    if (this->m_piece == piece) return;
+    this->m_piece = piece;
+    emit pieceChanged();
 }
 
 int Pawn::getScore() {

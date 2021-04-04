@@ -1,12 +1,9 @@
 #include "positions.h"
 
-Positions::Positions()
-{
-}
+Positions::Positions() {}
 
 QList<int> Positions::blackKingPosition= {0,3};
 QList<int> Positions::whiteKingPosition= {0,3};
-
 
 QList<int> Positions::getBlackKingPosition() {
     return blackKingPosition;

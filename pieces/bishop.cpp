@@ -17,10 +17,9 @@ QString Bishop::pieceType() const {
 }
 
 void Bishop::setPiece(QString piece) {
-    if(this->m_piece != piece) {
-        this->m_piece = piece;
-        emit pieceChanged();
-    }
+    if (this->m_piece == piece) return;
+    this->m_piece = piece;
+    emit pieceChanged();
 }
 
 int Bishop::getScore() {

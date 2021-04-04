@@ -12,25 +12,24 @@ Computer::~Computer() {
 void Computer::makeMove() {
     QHash<Piece *, QList<int>> move = this->minimax->minimaxRoot(Game::DEPTH);
     //Move piece
-    if (move.count() > 0) {
-        Piece * piece = move.keys()[0]->clone();
-        QList<int> possibleMove = move.values()[0];
+    if (move.count() <= 0) return;
 
-        if (Game::isCastlingMove(piece, possibleMove)) {
-            piece->hasMoved();
-            Game::castle(board, piece, possibleMove);
-        } else {
-            piece->hasMoved();
-            Game::makeMove(board, piece, possibleMove);
-        }
+    Piece * piece = move.keys()[0]->clone();
+    QList<int> possibleMove = move.values()[0];
 
-        replacePawnWithPiece(piece, possibleMove);
+    if (Game::isCastlingMove(piece, possibleMove)) {
+        piece->hasMoved();
+        Game::castle(board, piece, possibleMove);
+    } else {
+        piece->hasMoved();
+        Game::makeMove(board, piece, possibleMove);
     }
+
+    replacePawnWithPiece(piece, possibleMove);
 }
 
 void Computer::replacePawnWithPiece(Piece * piece, QList<int> move) {
     //If pawn has reached the end
-    if(piece->pieceType() == "♟" && move[0] == 7) {
-        this->board[move[0]][move[1]]->changePiece("♛", piece->pieceColour(), true);
-    }
+    if(piece->pieceType() != "♟" || move[0] != 7) return;
+    this->board[move[0]][move[1]]->changePiece("♛", piece->pieceColour(), true);
 }

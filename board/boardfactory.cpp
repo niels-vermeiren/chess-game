@@ -16,12 +16,10 @@ QList<QList<Square *>> BoardFactory::createBoard() {
     QList<QList<Square *>> squares;
 
     for(int x = 0 ; x != sizeof(initial)/sizeof(initial[0]) ; x++) {
-
         QList<Square *> squaresRow;
         squaresRow.clear();
 
         for(int y =0 ; y != sizeof(initial[0])/sizeof(initial[0][0]) ; y++) {
-
             Square::SquareColour squareColour = (x + y) % 2 == 0 ? Square::SquareColour::WHITE : Square::SquareColour::BLACK;
             Piece::PieceColour pieceColour = x == 0 || x == 1 ? Piece::PieceColour::BLACK :
                           x == 6 || x == 7 ? Piece::PieceColour::WHITE : Piece::PieceColour::NONE;

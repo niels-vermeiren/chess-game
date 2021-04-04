@@ -24,10 +24,9 @@ QString King::pieceType() const {
 }
 
 void King::setPiece(QString piece) {
-    if(this->m_piece != piece) {
-        this->m_piece = piece;
-        emit pieceChanged();
-    }
+    if (this->m_piece == piece) return;
+    this->m_piece = piece;
+    emit pieceChanged();
 }
 
 int King::getScore() {

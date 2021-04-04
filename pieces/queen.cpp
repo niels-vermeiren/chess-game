@@ -18,10 +18,9 @@ QString Queen::pieceType() const {
 }
 
 void Queen::setPiece(QString piece) {
-    if(this->m_piece != piece) {
-        this->m_piece = piece;
-        emit pieceChanged();
-    }
+    if (this->m_piece == piece) return;
+    this->m_piece = piece;
+    emit pieceChanged();
 }
 
 int Queen::getScore() {

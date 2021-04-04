@@ -13,20 +13,19 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
     int i = 0;
     while(i != possibleMoves.count()) {
         //Make move and check for check
-        if(possibleMoves[i].count() > 0) {
+        if(possibleMoves[i].count() == 0) continue;
 
-            if(isCheckForColour(board, pieceClone->pieceColour()) && isCastlingMove(pieceClone, possibleMoves[i])) {
-                possibleMoves.remove(i);
-            } else {
-                bool isCheck = false;
-                //Make move
-                Piece * capturedPiece = makeMove(board, pieceClone, possibleMoves[i])->clone();
-                isCheck = isCheckForColour(board, pieceClone->pieceColour());
-                //Revert move
-                undoMove(board, pieceClone, capturedPiece, row, col);
-                if (!isCheck) i++;
-                else possibleMoves.remove(i);
-            }
+        if(isCheckForColour(board, pieceClone->pieceColour()) && isCastlingMove(pieceClone, possibleMoves[i])) {
+            possibleMoves.remove(i);
+        } else {
+            bool isCheck = false;
+            //Make move
+            Piece * capturedPiece = makeMove(board, pieceClone, possibleMoves[i])->clone();
+            isCheck = isCheckForColour(board, pieceClone->pieceColour());
+            //Revert move
+            undoMove(board, pieceClone, capturedPiece, row, col);
+            if (!isCheck) i++;
+            else possibleMoves.remove(i);
         }
     }
     return possibleMoves;
@@ -35,7 +34,6 @@ QList<QList<int>> Game::getPossibleMoves(QList<QList<Square *>> board, int row, 
 bool Game::isCheckForColour(QList<QList<Square *>> board, QString colour) {
     //Get position of king of colour
     Piece * king;
-
     if (colour == "black") {
         king = board[Positions::getBlackKingPosition()[0]][Positions::getBlackKingPosition()[1]]->getPieceOnSquare();
     } else {
@@ -77,24 +75,23 @@ bool Game::isCheckMateForColour(QList<QList<Square *>> board, QString colour) {
             for(int k = 0; k != possibleMoves.count(); k++) {
                 //Make the move
                 bool isNotCheckMate = false;
-                if(possibleMoves[k].count() > 0) {
-                    //Copy piece
-                    Piece * piece = board[i][j]->getPieceOnSquare()->clone();
+                if(possibleMoves[k].count() == 0) continue;
+                //Copy piece
+                Piece * piece = board[i][j]->getPieceOnSquare()->clone();
 
-                    //If it is a castling move
-                    if(isCastlingMove(piece, possibleMoves[k])) {
-                        piece = castle(board, piece, possibleMoves[k]);
-                        isNotCheckMate = !isCheckForColour(board, piece->pieceColour());
-                        reverseCastle(board, piece);
-                    } else {
-                        //Move
-                        Piece * capturedPiece = makeMove(board, piece, possibleMoves[k]);
-                        isNotCheckMate = !isCheckForColour(board, colour);
-                        undoMove(board, piece, capturedPiece, i, j);
-                        //Revert move
-                    }
-                    if (isNotCheckMate) return false;
+                //If it is a castling move
+                if(isCastlingMove(piece, possibleMoves[k])) {
+                    piece = castle(board, piece, possibleMoves[k]);
+                    isNotCheckMate = !isCheckForColour(board, piece->pieceColour());
+                    reverseCastle(board, piece);
+                } else {
+                    //Move
+                    Piece * capturedPiece = makeMove(board, piece, possibleMoves[k]);
+                    isNotCheckMate = !isCheckForColour(board, colour);
+                    undoMove(board, piece, capturedPiece, i, j);
+                    //Revert move
                 }
+                if (isNotCheckMate) return false;
             }
         }
     }
