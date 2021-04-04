@@ -19,5 +19,4 @@ and develop a simple chess A.I.
 
 ## To-do's
 
-- Keep track of white and black pieces 
 - Chess bitboard
